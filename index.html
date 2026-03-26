@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Better Connected — Energy Consultancy</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#0a0a0a;--surface:#111;--surface2:#161616;
+  --lime:#c8f542;--lime-dim:rgba(200,245,66,0.15);--lime-border:rgba(200,245,66,0.25);
+  --text:#f0ede8;--text-mid:rgba(240,237,232,0.55);--text-low:rgba(240,237,232,0.3);
+  --border:rgba(255,255,255,0.07);--border-mid:rgba(255,255,255,0.12);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--black);color:var(--text);line-height:1.6;font-size:16px}
+
+/* NAV */
+nav{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,10,0.97);backdrop-filter:blur(8px);z-index:200}
+.logo{font-size:1rem;font-weight:700;letter-spacing:-0.02em;cursor:pointer;color:var(--text)}
+.logo span{color:var(--lime)}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{font-size:0.8rem;color:var(--text-low);text-decoration:none;letter-spacing:0.02em;padding:0.4rem 1rem;transition:color 0.15s;cursor:pointer}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-cta{font-size:0.8rem;padding:0.5rem 1.25rem;background:var(--lime);color:var(--black);border:none;border-radius:3px;cursor:pointer;font-weight:700;letter-spacing:0.01em;transition:opacity 0.15s}
+.nav-cta:hover{opacity:0.88}
+
+/* PAGES */
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+
+/* HERO */
+.hero{padding:7rem 3rem 5rem;max-width:860px}
+.eyebrow{font-size:0.68rem;letter-spacing:0.16em;color:var(--lime);text-transform:uppercase;margin-bottom:1.75rem;font-weight:600}
+h1{font-size:clamp(2.6rem,5vw,4.2rem);font-weight:800;line-height:1.06;letter-spacing:-0.035em;margin-bottom:1.75rem}
+h1 .lime{color:var(--lime)}
+.hero-sub{font-size:1.1rem;color:var(--text-mid);max-width:540px;line-height:1.75;margin-bottom:2.75rem}
+.btn-row{display:flex;gap:0.85rem;flex-wrap:wrap;align-items:center}
+.btn-p{padding:0.8rem 1.85rem;background:var(--lime);color:var(--black);border:none;border-radius:3px;font-size:0.88rem;font-weight:700;cursor:pointer;letter-spacing:0.01em;transition:opacity 0.15s}
+.btn-p:hover{opacity:0.88}
+.btn-g{padding:0.8rem 1.85rem;background:transparent;color:var(--text-mid);border:1px solid var(--border-mid);border-radius:3px;font-size:0.88rem;cursor:pointer;transition:all 0.15s}
+.btn-g:hover{color:var(--text);border-color:rgba(255,255,255,0.3)}
+
+/* STAT BAR */
+.stat-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.stat{background:var(--black);padding:2.25rem 2.5rem}
+.stat-n{font-size:2.6rem;font-weight:800;color:var(--lime);letter-spacing:-0.04em;line-height:1}
+.stat-l{font-size:0.68rem;color:var(--text-low);margin-top:0.4rem;text-transform:uppercase;letter-spacing:0.1em}
+.stat-d{font-size:0.85rem;color:var(--text-mid);margin-top:0.65rem;line-height:1.6}
+
+/* PULL QUOTE */
+.pull{padding:4.5rem 3rem;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.pull-q{font-size:clamp(1.25rem,2.5vw,1.85rem);font-weight:500;line-height:1.45;letter-spacing:-0.02em;max-width:720px;font-style:italic}
+.pull-q .lime{color:var(--lime);font-style:normal}
+.pull-attr{font-size:0.72rem;color:var(--text-low);letter-spacing:0.1em;text-transform:uppercase;margin-top:1.25rem}
+
+/* SECTIONS */
+.section{padding:5rem 3rem}
+.s-label{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-low);margin-bottom:1rem}
+h2{font-size:clamp(1.7rem,3vw,2.4rem);font-weight:700;letter-spacing:-0.025em;line-height:1.15;margin-bottom:1.1rem}
+.s-body{font-size:0.95rem;color:var(--text-mid);max-width:580px;line-height:1.8}
+
+/* GRID CARDS */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:2.5rem}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:2.5rem}
+.card{background:var(--black);padding:2.25rem}
+.card-tag{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--lime);margin-bottom:0.65rem;font-weight:600}
+.card h3{font-size:1rem;font-weight:600;margin-bottom:0.6rem;letter-spacing:-0.01em;line-height:1.3}
+.card p{font-size:0.85rem;color:var(--text-mid);line-height:1.7}
+.card-arrow{font-size:0.78rem;color:var(--lime);margin-top:1.1rem;display:block;cursor:pointer;letter-spacing:0.02em}
+
+/* KNOWLEDGE ARTICLE */
+.article{max-width:680px}
+.article h2{margin-bottom:1.5rem}
+.article p{font-size:0.95rem;color:var(--text-mid);line-height:1.85;margin-bottom:1.25rem}
+.article h3{font-size:1.05rem;font-weight:600;color:var(--text);margin:2rem 0 0.75rem;letter-spacing:-0.01em}
+.callout{background:var(--surface);border:1px solid var(--lime-border);border-radius:4px;padding:1.25rem 1.5rem;margin:1.75rem 0}
+.callout p{color:var(--text-mid);font-size:0.88rem;line-height:1.75;margin:0}
+.callout strong{color:var(--lime);font-weight:600}
+
+/* HONEST PAGE */
+.honest-block{padding:4rem 3rem;border-bottom:1px solid var(--border)}
+.honest-block:last-of-type{border-bottom:none}
+.honest-block h3{font-size:1.2rem;font-weight:600;margin-bottom:0.85rem;letter-spacing:-0.01em}
+.honest-block p{font-size:0.92rem;color:var(--text-mid);line-height:1.8;max-width:640px;margin-bottom:0.85rem}
+.honest-block p:last-child{margin-bottom:0}
+.wont-do{background:var(--surface);border-left:3px solid var(--lime);padding:1.1rem 1.5rem;margin:1rem 0;border-radius:0 3px 3px 0}
+.wont-do p{color:var(--text-mid);font-size:0.88rem;line-height:1.7;margin:0}
+.wont-do strong{color:var(--text);font-weight:600}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;max-width:900px;margin-top:2.5rem}
+.form-group{margin-bottom:1.25rem}
+.form-group label{display:block;font-size:0.75rem;color:var(--text-low);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.5rem}
+.form-group input,.form-group textarea,.form-group select{width:100%;background:var(--surface);border:1px solid var(--border-mid);border-radius:3px;padding:0.75rem 1rem;color:var(--text);font-size:0.88rem;font-family:inherit;transition:border-color 0.15s;outline:none}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--lime)}
+.form-group textarea{height:120px;resize:vertical}
+.form-group select option{background:var(--surface);color:var(--text)}
+.form-submit{width:100%;padding:0.9rem;background:var(--lime);color:var(--black);border:none;border-radius:3px;font-size:0.9rem;font-weight:700;cursor:pointer;letter-spacing:0.02em;transition:opacity 0.15s}
+.form-submit:hover{opacity:0.88}
+.contact-info h3{font-size:1rem;font-weight:600;margin-bottom:1.25rem}
+.contact-detail{display:flex;flex-direction:column;gap:1.25rem}
+.c-item{border-top:1px solid var(--border);padding-top:1.1rem}
+.c-item-label{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-low);margin-bottom:0.35rem}
+.c-item-val{font-size:0.9rem;color:var(--text-mid)}
+.c-item-val a{color:var(--lime);text-decoration:none}
+.promise-box{background:var(--surface);border:1px solid var(--lime-border);border-radius:4px;padding:1.5rem;margin-top:2rem}
+.promise-box h4{font-size:0.85rem;font-weight:600;color:var(--lime);margin-bottom:0.75rem;letter-spacing:0.04em}
+.promise-box p{font-size:0.82rem;color:var(--text-mid);line-height:1.7}
+
+/* WHO WE WORK WITH */
+.sector-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:2.5rem}
+.sector{background:var(--black);padding:2rem}
+.sector h4{font-size:0.92rem;font-weight:600;margin-bottom:0.5rem}
+.sector p{font-size:0.82rem;color:var(--text-mid);line-height:1.65}
+.case-study{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:2rem;margin-top:2.5rem;max-width:760px}
+.cs-label{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--lime);margin-bottom:0.75rem}
+.cs-result{font-size:1.5rem;font-weight:700;color:var(--lime);letter-spacing:-0.02em;margin:0.75rem 0}
+.cs-detail{font-size:0.87rem;color:var(--text-mid);line-height:1.75}
+
+/* FOOTER */
+footer{padding:4rem 3rem 2.5rem;border-top:1px solid var(--border)}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand .tagline{font-size:0.8rem;color:var(--text-low);margin-top:0.75rem;max-width:200px;line-height:1.6}
+.footer-col h5{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-low);margin-bottom:1rem}
+.footer-col ul{list-style:none}
+.footer-col li{font-size:0.82rem;color:var(--text-low);margin-bottom:0.55rem;cursor:pointer;transition:color 0.15s}
+.footer-col li:hover{color:var(--text)}
+.footer-bottom{padding-top:2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.footer-bottom p{font-size:0.72rem;color:var(--text-low)}
+.footer-strap{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,245,66,0.4)}
+
+/* DIVIDER */
+hr{border:none;border-top:1px solid var(--border);margin:0}
+
+/* BREADCRUMB */
+.breadcrumb{padding:1.25rem 3rem;font-size:0.75rem;color:var(--text-low);border-bottom:1px solid var(--border);display:flex;gap:0.5rem;align-items:center}
+.breadcrumb span{color:var(--text-low)}
+.breadcrumb a{color:var(--text-low);cursor:pointer;text-decoration:none;transition:color 0.15s}
+.breadcrumb a:hover{color:var(--lime)}
+.sep{opacity:0.3}
+
+/* KNOWLEDGE INDEX */
+.know-index{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:2.5rem}
+.know-row{background:var(--black);padding:1.75rem 2rem;cursor:pointer;transition:background 0.15s;display:flex;justify-content:space-between;align-items:flex-start}
+.know-row:hover{background:var(--surface)}
+.know-row-title{font-size:0.95rem;font-weight:600;margin-bottom:0.35rem}
+.know-row-sub{font-size:0.8rem;color:var(--text-mid)}
+.know-row-arrow{color:var(--lime);font-size:1.1rem;margin-top:0.2rem;flex-shrink:0}
+
+/* INLINE DECLARATION LIST */
+.dec-list{list-style:none;margin:1.25rem 0}
+.dec-list li{font-size:0.9rem;color:var(--text-mid);padding:0.7rem 0;border-bottom:1px solid var(--border);display:flex;gap:0.75rem;line-height:1.65}
+.dec-list li:last-child{border-bottom:none}
+.dec-icon{color:var(--lime);flex-shrink:0;font-weight:700}
+
+/* SUCCESS STATE */
+.success-msg{background:var(--lime-dim);border:1px solid var(--lime-border);border-radius:4px;padding:1.5rem;text-align:center;display:none}
+.success-msg h3{color:var(--lime);font-size:1.1rem;margin-bottom:0.5rem}
+.success-msg p{font-size:0.88rem;color:var(--text-mid)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo" onclick="show('home')">Better<span>Connected</span></div>
+  <ul class="nav-links">
+    <li><a onclick="show('what-we-do')" id="nav-what-we-do">What we do</a></li>
+    <li><a onclick="show('honest')" id="nav-honest">The honest bit</a></li>
+    <li><a onclick="show('knowledge')" id="nav-knowledge">Energy explained</a></li>
+    <li><a onclick="show('who')" id="nav-who">Who we work with</a></li>
+    <li><a onclick="show('about')" id="nav-about">Who we are</a></li>
+  </ul>
+  <button class="nav-cta" onclick="show('contact')">Talk to us</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════ HOME -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="eyebrow">Energy consultancy — done differently</div>
+    <h1>Your energy bill is a<br><span class="lime">negotiation.</span><br>We just happen to be<br>very good at it.</h1>
+    <p class="hero-sub">We won't dress this up in buzzwords. Energy costs money, suppliers have margin, and most businesses overpay. We find it. We fix it. Then we stay to make sure it stays fixed.</p>
+    <div class="btn-row">
+      <button class="btn-p" onclick="show('contact')">See what we find →</button>
+      <button class="btn-g" onclick="show('what-we-do')">Read how this works</button>
+    </div>
+  </section>
+  <hr>
+  <div class="stat-bar">
+    <div class="stat"><div class="stat-n">£0</div><div class="stat-l">Upfront cost to you</div><div class="stat-d">We get paid when we save you money. If we find nothing, the conversation was free.</div></div>
+    <div class="stat"><div class="stat-n">47%</div><div class="stat-l">Of bills we audit contain errors</div><div class="stat-d">Not typos. Real structural overcharges sitting unnoticed — sometimes for years.</div></div>
+    <div class="stat"><div class="stat-n">1</div><div class="stat-l">Point of contact. Always.</div><div class="stat-d">No call centres. The person who reviews your bill is the person you call.</div></div>
+  </div>
+  <hr>
+  <div class="pull">
+    <p class="pull-q">"Most energy brokers are just <span class="lime">middlemen with a spreadsheet.</span> We built Better Connected to be something else — the advisor you call when the bill looks wrong, the contract's about to renew, or you just want a straight answer."</p>
+    <div class="pull-attr">— The founding principle, in plain English</div>
+  </div>
+  <section class="section">
+    <div class="s-label">Four things we do</div>
+    <h2>Energy managed properly.<br>Not just procured cheaply.</h2>
+    <p class="s-body">There's a meaningful difference between buying energy at a good price and actually managing your energy relationship well. We do both — and we stay involved long after the contract is signed.</p>
+    <div class="grid2">
+      <div class="card"><div class="card-tag">Procurement</div><h3>Contract strategy &amp; supplier negotiation</h3><p>We time the market, understand your consumption profile, and negotiate with suppliers who know we'll walk if the deal isn't right. That changes what you're offered.</p><span class="card-arrow" onclick="show('what-we-do')">How procurement works →</span></div>
+      <div class="card"><div class="card-tag">Bill intelligence</div><h3>Validation, auditing &amp; error recovery</h3><p>Energy bills contain up to 14 separate line items. Errors accumulate quietly. We find them and recover the money — often retrospectively.</p><span class="card-arrow" onclick="show('what-we-do')">What we audit →</span></div>
+      <div class="card"><div class="card-tag">Ongoing</div><h3>Consumption monitoring &amp; reduction</h3><p>Buying energy cheaper is only half of it. Using less is the other half. We track consumption patterns and flag anomalies before they become expensive ones.</p><span class="card-arrow" onclick="show('what-we-do')">How monitoring works →</span></div>
+      <div class="card"><div class="card-tag">Future</div><h3>Net zero &amp; renewables — without the theatre</h3><p>We're not selling carbon offsets and calling it done. If renewables make commercial sense for your situation, we'll show you the numbers. If they don't yet, we'll say so.</p><span class="card-arrow" onclick="show('what-we-do')">Renewables honestly →</span></div>
+    </div>
+  </section>
+  <hr>
+  <section class="section" style="background:var(--surface)">
+    <div class="s-label">The parts nobody explains</div>
+    <h2>Your bill has up to 14 line items.<br>We've written plain English on every one.</h2>
+    <p class="s-body">Not because the theory is interesting — it mostly isn't. But because understanding what you're being charged for is the first step to challenging it.</p>
+    <div class="grid3">
+      <div class="card"><h3>Half Hourly meters</h3><p>Why some buildings need them, what they actually record, and what DUoS band timing means for what you pay.</p><span class="card-arrow" onclick="showArticle('hh')">Read →</span></div>
+      <div class="card"><h3>Transportation charges</h3><p>DUoS, TNUoS, BSUoS — the cost of getting electricity to your building. What they are and who sets them.</p><span class="card-arrow" onclick="showArticle('transport')">Read →</span></div>
+      <div class="card"><h3>Green levies &amp; CCL</h3><p>The Climate Change Levy, Renewable Obligation Costs, and what your business might legitimately be exempt from.</p><span class="card-arrow" onclick="showArticle('green')">Read →</span></div>
+      <div class="card"><h3>Standing charges</h3><p>The daily fixed cost that has nothing to do with how much energy you use — and what's actually negotiable within it.</p><span class="card-arrow" onclick="showArticle('standing')">Read →</span></div>
+      <div class="card"><h3>Capacity charges</h3><p>The charge for the maximum demand your site could ever put on the grid — not what you use. Often set wrong. Often recoverable.</p><span class="card-arrow" onclick="showArticle('capacity')">Read →</span></div>
+      <div class="card"><h3>Deemed rate contracts</h3><p>What happens to your energy price when a contract lapses. Spoiler: it gets expensive. Here's what to do about it.</p><span class="card-arrow" onclick="showArticle('deemed')">Read →</span></div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════ WHAT WE DO -->
+<div class="page" id="page-what-we-do">
+  <div class="breadcrumb"><a onclick="show('home')">Home</a><span class="sep">/</span><span>What we do</span></div>
+  <section class="section">
+    <div class="s-label">What we do</div>
+    <h2>The full scope of what<br>Better Connected does for you.</h2>
+    <p class="s-body">We're not a comparison site, a switching platform, or a call centre with a login page. We're a consultancy — which means we think before we recommend, and we stay after we've acted.</p>
+  </section>
+  <hr>
+  <section class="section">
+    <div class="s-label">Stage one</div>
+    <h2>Procurement &amp; contract strategy</h2>
+    <div class="article">
+      <p>The energy procurement market looks simple from the outside. You get quotes, you pick the cheapest one, you sign. The reality is considerably more nuanced — and the gap between a well-timed, well-structured contract and a default renewal can run to tens of thousands of pounds over the contract term.</p>
+      <p>We start with your consumption profile. Not the headline annual figure, but the shape of it — when you draw your heaviest loads, what your demand profile looks like across seasons, whether your Half Hourly data reveals patterns that a fixed-rate contract should account for. That analysis changes which product is right for you, which supplier is the right conversation to have, and what leverage exists in the negotiation.</p>
+      <p>We work with the full panel of licensed suppliers and we have no preferred relationships that distort our advice. When we recommend a supplier, it's because they're right for your profile at that moment in the market — not because a relationship fee makes them more profitable for us to place.</p>
+      <h3>Market timing</h3>
+      <p>Energy wholesale prices move. Contracts signed in a volatile period can lock in prices that look expensive within months; equally, waiting too long in a rising market compounds the cost. We monitor wholesale market conditions and advise on when to fix, how long to fix for, and whether a flexible or structured product makes more sense than a standard fixed-rate contract.</p>
+      <h3>Contract structure</h3>
+      <p>The unit rate is only one element of what you're signing. Pass-through versus all-inclusive contracts, break clauses, deemed rate exposure on expiry, auto-renewal triggers, volume tolerance bands — all of these have financial consequences that most businesses only discover after they've signed. We review contract terms before you commit to anything.</p>
+      <div class="callout"><p><strong>One thing worth knowing:</strong> If you're currently on an auto-renewed contract — where your previous supplier rolled you onto a new term without your active agreement — you may have grounds to challenge the terms. It's worth asking us to look at the renewal correspondence.</p></div>
+    </div>
+  </section>
+  <hr>
+  <section class="section">
+    <div class="s-label">Stage two</div>
+    <h2>Bill validation &amp; error recovery</h2>
+    <div class="article">
+      <p>We review every bill we can get our hands on. Not skimming the total — reading the line items, cross-referencing against the contract, checking the metering data, verifying the network charges against the applicable rates for your profile class and region.</p>
+      <p>The errors we find most frequently are structural rather than clerical. A DUoS band misclassification, for example, isn't a typo — it's a systematic overcharge that compounds monthly and may have been present since the meter was first registered. A capacity charge set at installation that was never reviewed as the site's usage pattern changed. A standing charge that includes a component the contract doesn't justify.</p>
+      <p>When we find an error, we manage the recovery. That means raising the formal dispute with your supplier, providing the supporting documentation, chasing the credit, and confirming it lands correctly on a future bill. You don't need to handle that process — and frankly, given how suppliers respond to direct customer disputes versus consultant-led ones, you're better off not trying.</p>
+      <h3>Historical auditing</h3>
+      <p>Most suppliers will accept retrospective claims up to six years back. If there's a systematic billing error in your history, the recovery value can be significant. We don't charge for the audit — we take a percentage of any recovery we achieve, agreed upfront, so our incentive is to find everything rather than the easy bits.</p>
+    </div>
+  </section>
+  <hr>
+  <section class="section">
+    <div class="s-label">Stage three</div>
+    <h2>Consumption monitoring &amp; reduction</h2>
+    <div class="article">
+      <p>Once the contract is right and the billing is clean, the remaining lever is consumption itself. Using less energy is structurally more valuable than buying it cheaper — a 10% reduction in consumption saves 10% of the total bill, permanently, without needing to renegotiate anything.</p>
+      <p>We provide ongoing consumption monitoring for all retained clients — tracking against baseline, flagging anomalies, and identifying where usage has drifted beyond what your operational pattern explains. Sometimes this reveals metering faults. Sometimes it reveals a piece of equipment running overnight that shouldn't be. Occasionally it reveals a leak in a compressed air system that nobody knew existed.</p>
+      <p>We're not energy efficiency engineers — if structural works are needed, we'll introduce you to the right people for that. What we do is provide the intelligence that tells you where to look, and the context to understand what you're seeing when you look there.</p>
+    </div>
+  </section>
+  <hr>
+  <section class="section">
+    <div class="s-label">Stage four</div>
+    <h2>Net zero &amp; renewables — the honest version</h2>
+    <div class="article">
+      <p>The sustainability conversation in business energy has become saturated with noise. Green tariffs, carbon offsets, REGOs, on-site generation, PPAs — the language is complex, the claims are often inflated, and the distinction between genuine carbon reduction and carbon accounting can be hard to find in a supplier proposal.</p>
+      <p>Our position is straightforward. We'll help you understand what each option actually delivers in terms of real-world carbon reduction, what it costs relative to the alternatives, and whether the numbers support the investment at your scale of consumption. If a green tariff is simply bundled REGOs with a premium attached, we'll tell you that. If a Power Purchase Agreement for on-site solar would achieve a genuine 12-year payback that makes commercial sense, we'll show you the model.</p>
+      <p>We don't have a sustainability product to sell. That's what allows us to give you an unbiased view of what sustainability in energy actually looks like for your business.</p>
+      <div class="callout"><p><strong>On net zero targets:</strong> If your business has made a public net zero commitment, we can help you build an energy roadmap that's grounded in measurable reduction rather than offset-led accounting. The two approaches look similar on paper and are very different in practice.</p></div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════ THE HONEST BIT -->
+<div class="page" id="page-honest">
+  <div class="breadcrumb"><a onclick="show('home')">Home</a><span class="sep">/</span><span>The honest bit</span></div>
+  <section class="section">
+    <div class="s-label">Transparency first</div>
+    <h2>How this industry really works —<br>and how we're different.</h2>
+    <p class="s-body">This page exists because we think you deserve to understand the commercial structure of any business you're trusting with your costs. Most companies in our sector don't write a page like this. We think that's telling.</p>
+  </section>
+  <hr>
+  <div class="honest-block">
+    <div class="s-label">How energy brokers get paid</div>
+    <h3>The commission model — declared.</h3>
+    <p>The standard model in the energy broking industry is this: a broker arranges your energy contract, the supplier embeds a commission into your unit rate, and you pay that commission every time you use energy for the duration of the contract. The commission is often not disclosed. In some cases it isn't disclosed even when you ask directly.</p>
+    <p>This creates an obvious misalignment. If a broker earns more from placing you with Supplier A than Supplier B, and the difference isn't visible to you, you have no way to know whether the recommendation is in your interest or theirs. The energy market has operated this way for decades. Regulatory pressure is slowly increasing transparency requirements, but the industry is not rushing to comply with the spirit of them.</p>
+    <p>Our position is simple. Before you agree to work with us, we will tell you — in writing — how we are paid, the approximate value of any commission we will earn from your contract, and whether we receive different rates from different suppliers. If knowing that information changes your view of our recommendation, we'd rather you told us than felt you'd been managed.</p>
+  </div>
+  <div class="honest-block">
+    <div class="s-label">Our commercial structure</div>
+    <h3>What we earn and when we earn it.</h3>
+    <p>We operate on two models depending on the nature of the engagement.</p>
+    <p>For procurement-led work — contract review, market tendering, and contract placement — we earn a commission from the supplier embedded in the unit rate, disclosed in full before you sign. This is standard in the sector; what isn't standard is telling you the amount. We do.</p>
+    <p>For retained advisory work — ongoing bill validation, consumption monitoring, market updates, and contract management across multiple sites or commodities — we charge a monthly advisory fee agreed at the start of the engagement. This removes commission dependency entirely for those services and aligns our incentive with your cost reduction rather than your contract value.</p>
+    <p>For bill audit and error recovery work, we operate on a recovery-share basis: we take a percentage of any amount we recover for you, agreed in writing before we start. If we find nothing, you pay nothing.</p>
+  </div>
+  <hr>
+  <div class="honest-block">
+    <div class="s-label">What we won't do</div>
+    <h3>The things this business has decided not to be.</h3>
+    <p>Every business makes choices about what it will and won't do. These are ours. They're not marketing — they're the lines we've decided not to cross, and we think you should know about them before you decide whether to work with us.</p>
+    <div class="wont-do"><p><strong>We won't recommend a supplier based on who pays us the most.</strong> Commissions vary between suppliers. We have made a structural decision to recommend the best-fit supplier for your profile regardless of the commission differential, and to disclose that differential so you can verify it.</p></div>
+    <div class="wont-do"><p><strong>We won't embed hidden fees in your contract.</strong> No admin fees that appear later. No "management fees" that weren't in the original terms. No charges for work we described as part of the service. The price we agree is the price.</p></div>
+    <div class="wont-do"><p><strong>We won't sell you a green product that doesn't do what it claims.</strong> REGO-backed green tariffs are accounting instruments, not carbon reduction. We'll explain the difference and let you decide what you want to buy — not describe one as the other.</p></div>
+    <div class="wont-do"><p><strong>We won't push you to switch when staying makes more sense.</strong> Sometimes your existing supplier, negotiated directly with our support, is the right outcome. We don't need you to move to earn our fee — and we'll tell you when staying is the better call.</p></div>
+    <div class="wont-do"><p><strong>We won't disappear after the contract is signed.</strong> The contract is the beginning of the engagement, not the end of it. If you have a query six months in, you'll reach the same person who arranged the contract — not a support inbox.</p></div>
+    <div class="wont-do"><p><strong>We won't work with businesses where we can't genuinely add value.</strong> If your situation is simple enough that a direct supplier relationship or a comparison site serves you adequately, we'll tell you that rather than take on work that doesn't justify our involvement.</p></div>
+  </div>
+  <hr>
+  <div class="honest-block">
+    <div class="s-label">Industry context</div>
+    <h3>Why we're saying this at all.</h3>
+    <p>The energy consultancy and broking market has a genuine trust problem. It stems from years of undisclosed commissions, mis-sold products, and a regulatory framework that was slower to act than it should have been. Ofgem has been tightening rules around broker transparency, and the Energywatch complaints data shows that business energy complaints — particularly around contract disputes and undisclosed charges — remain disproportionately high.</p>
+    <p>We think the answer to an industry with a trust problem is to be trustworthy — demonstrably, in writing, before there's any commercial agreement. This page is part of that. If you've read it and you think it sounds like marketing dressed up as honesty, that's a fair challenge. The test is whether what we do matches what we say. We'd rather you held us to that than gave us the benefit of the doubt.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ KNOWLEDGE INDEX -->
+<div class="page" id="page-knowledge">
+  <div class="breadcrumb"><a onclick="show('home')">Home</a><span class="sep">/</span><span>Energy explained</span></div>
+  <section class="section">
+    <div class="s-label">Energy explained</div>
+    <h2>Everything on your bill.<br>Explained without the jargon.</h2>
+    <p class="s-body">Business energy bills are deliberately complex. That complexity benefits suppliers and disadvantages the businesses paying them. These articles level the playing field — they're free, they're comprehensive, and they exist because informed clients ask better questions.</p>
+    <div class="know-index">
+      <div class="know-row" onclick="showArticle('hh')"><div><div class="know-row-title">Half Hourly meters</div><div class="know-row-sub">Who needs them, how they work, DUoS bands &amp; Triad avoidance</div></div><div class="know-row-arrow">→</div></div>
+      <div class="know-row" onclick="showArticle('transport')"><div><div class="know-row-title">Transportation charges</div><div class="know-row-sub">DUoS, TNUoS, BSUoS — the network cost on every bill</div></div><div class="know-row-arrow">→</div></div>
+      <div class="know-row" onclick="showArticle('green')"><div><div class="know-row-title">Green levies &amp; Climate Change Levy</div><div class="know-row-sub">What they fund, how they're calculated, exemptions available</div></div><div class="know-row-arrow">→</div></div>
+      <div class="know-row" onclick="showArticle('standing')"><div><div class="know-row-title">Standing charges</div><div class="know-row-sub">The fixed daily cost — what's in it and what's negotiable</div></div><div class="know-row-arrow">→</div></div>
+      <div class="know-row" onclick="showArticle('capacity')"><div><div class="know-row-title">Capacity charges &amp; kVA</div><div class="know-row-sub">Maximum demand charges — often wrong, often recoverable</div></div><div class="know-row-arrow">→</div></div>
+      <div class="know-row" onclick="showArticle('deemed')"><div><div class="know-row-title">Deemed rate contracts</div><div class="know-row-sub">What happens when your contract expires — and how expensive it gets</div></div><div class="know-row-arrow">→</div></div>
+      <div class="know-row" onclick="showArticle('regos')"><div><div class="know-row-title">REGOs &amp; green tariffs</div><div class="know-row-sub">The difference between renewable accounting and renewable energy</div></div><div class="know-row-arrow">→</div></div>
+      <div class="know-row" onclick="showArticle('flex')"><div><div class="know-row-title">Fixed vs flexible contracts</div><div class="know-row-sub">When each makes sense, and the risks both carry</div></div><div class="know-row-arrow">→</div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════ ARTICLES -->
+<div class="page" id="page-article">
+  <div class="breadcrumb"><a onclick="show('home')">Home</a><span class="sep">/</span><a onclick="show('knowledge')">Energy explained</a><span class="sep">/</span><span id="article-crumb"></span></div>
+  <section class="section"><div class="article" id="article-body"></div></section>
+</div>
+
+<!-- ═══════════════════════════════════════════════ WHO WE WORK WITH -->
+<div class="page" id="page-who">
+  <div class="breadcrumb"><a onclick="show('home')">Home</a><span class="sep">/</span><span>Who we work with</span></div>
+  <section class="section">
+    <div class="s-label">Who we work with</div>
+    <h2>We work with businesses<br>of every size. Honestly.</h2>
+    <p class="s-body">We don't have a minimum spend threshold. We don't chase volume targets that push us toward larger clients at the expense of smaller ones. If we can genuinely add value, we'll take on the work. If we can't, we'll tell you.</p>
+    <div class="sector-grid">
+      <div class="sector"><h4>Manufacturing &amp; industrial</h4><p>High-consumption sites with complex demand profiles, Half Hourly settlement, and significant exposure to capacity charges and DUoS band management. Often the highest recovery opportunity.</p></div>
+      <div class="sector"><h4>Commercial property &amp; retail</h4><p>Multi-site portfolios, landlord-tenant energy structures, and the complexity of managing bills across diverse property types. We handle the consolidation and the detail simultaneously.</p></div>
+      <div class="sector"><h4>Hospitality &amp; leisure</h4><p>Seasonal consumption patterns, high standing charge exposure, and frequent contract lapses that push operators onto deemed rates. Often under-served by the market. Often paying too much as a result.</p></div>
+      <div class="sector"><h4>Healthcare &amp; education</h4><p>Regulated sectors with procurement compliance requirements, sustainability reporting obligations, and consumption profiles that benefit significantly from monitoring and anomaly detection.</p></div>
+      <div class="sector"><h4>Professional services &amp; offices</h4><p>Relatively straightforward consumption profiles that are nonetheless frequently over-billed. Standing charges, capacity settings, and contract timing are the main levers. Simpler, but still worth reviewing.</p></div>
+      <div class="sector"><h4>SMEs &amp; independent businesses</h4><p>Businesses that have never had a dedicated energy advisor and are often on auto-renewed contracts they didn't actively choose. The starting point is usually a free audit. The outcome is usually a better deal.</p></div>
+    </div>
+  </section>
+  <hr>
+  <section class="section">
+    <div class="s-label">In practice</div>
+    <h2>What working with us looks like.</h2>
+    <div class="case-study">
+      <div class="cs-label">Case study — manufacturing, West Midlands</div>
+      <p style="font-size:0.85rem;color:var(--text-mid);margin-top:0.5rem;line-height:1.7">A 180-employee manufacturer had been with the same supplier for six years, auto-renewing on each expiry. Their Half Hourly bills had never been formally audited and their capacity setting had been established at the site's original build, not reviewed since.</p>
+      <div class="cs-result">£34,200 recovered</div>
+      <div class="cs-detail">DUoS band misclassification across 4 years: £18,400. Capacity charge reduction (kVA resetting): £9,800 annually going forward. New contract saving vs renewal offer: £6,000 per year. Total first-year impact: £34,200. Ongoing annual saving: £15,800.</div>
+    </div>
+    <div class="case-study" style="margin-top:1rem">
+      <div class="cs-label">Case study — hospitality group, 6 sites</div>
+      <p style="font-size:0.85rem;color:var(--text-mid);margin-top:0.5rem;line-height:1.7">A group of six pub-restaurants operating on a mix of supplier contracts at different expiry dates, two of which had already lapsed onto deemed rates. No central oversight of energy spend across the estate.</p>
+      <div class="cs-result">£21,600 per year</div>
+      <div class="cs-detail">Two sites removed from deemed rate contracts immediately: £6,200 saving in year one. Consolidated group procurement across all six sites with aligned renewal dates: £11,400 annual saving. Standing charge renegotiation across 3 sites: £4,000 annual saving. Plus ongoing monitoring flagged a faulty meter at site 4 generating fictitious consumption data — rectified within 3 weeks of engagement.</div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════ ABOUT -->
+<div class="page" id="page-about">
+  <div class="breadcrumb"><a onclick="show('home')">Home</a><span class="sep">/</span><span>Who we are</span></div>
+  <section class="section">
+    <div class="s-label">Who we are</div>
+    <h2>We started this because the<br>industry needed someone to start it.</h2>
+    <div class="article">
+      <p>Better Connected exists because the energy consultancy market had a problem it wasn't willing to admit. Too many people calling themselves advisors were really just salespeople. The distinction matters — an advisor tells you what's best for you, including when that isn't what earns them the most.</p>
+      <p>The business was built around a single operating principle: if we tell you the truth about what your bill contains, how we're paid, what's genuinely worth doing and what's industry theatre, you'll trust us with your next contract — and the one after that. That is a more sustainable commercial model than extracting value from opacity. We'd rather prove it than assert it.</p>
+      <p>We're small by design. Not because we lack ambition — because we've seen what happens to energy consultancies that scale aggressively. Client relationships get passed to junior staff, institutional knowledge gets diluted, and the quality that justified the client's trust in the first place gets traded for growth metrics. We're not interested in that trade.</p>
+      <p>Every client has a named consultant. That consultant reads your bill, takes your call, and is accountable for the outcome. They are also empowered to tell you when a different course of action is right for you, even when it costs us the engagement. That's not a pitch — it's the operating model.</p>
+      <h3>What we believe about this industry</h3>
+      <p>The energy market for businesses is structurally opaque. Suppliers have no commercial incentive to simplify bills, clarify charges, or proactively flag when a customer is overpaying. Brokers have historically had limited incentive to challenge that structure because the opacity is where their margin lives. Regulatory pressure is changing this, slowly — but the market still rewards complexity more than it rewards clarity.</p>
+      <p>We think the right response is to build a business that is explicitly on the client's side of that equation — one that understands the complexity well enough to navigate it, is transparent about how it operates within it, and measures success by the savings generated rather than the contracts placed.</p>
+      <p>That sounds obvious. In this sector, it apparently isn't.</p>
+      <h3>The name</h3>
+      <p>Better Connected means exactly what it says. Better connected to the market — we understand how it moves and use that to your advantage. Better connected to your data — your bills, your consumption, your contract terms. And better connected to you — not a portal, not a ticket system, a person who knows your account and answers the phone.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════ CONTACT -->
+<div class="page" id="page-contact">
+  <div class="breadcrumb"><a onclick="show('home')">Home</a><span class="sep">/</span><span>Talk to us</span></div>
+  <section class="section">
+    <div class="s-label">Talk to us</div>
+    <h2>No pitch deck. No holding page.<br>Just a conversation.</h2>
+    <p class="s-body">Tell us a bit about your situation and we'll come back to you within one working day. If the first call takes five minutes and we tell you everything looks fine, that's a good outcome too.</p>
+    <div class="contact-grid">
+      <div>
+        <div id="contact-form">
+          <div class="form-group"><label>Your name</label><input type="text" placeholder="First and last name"></div>
+          <div class="form-group"><label>Business name</label><input type="text" placeholder="Company name"></div>
+          <div class="form-group"><label>Email address</label><input type="email" placeholder="you@yourcompany.co.uk"></div>
+          <div class="form-group"><label>Phone</label><input type="tel" placeholder="Optional — we'll default to email"></div>
+          <div class="form-group">
+            <label>What best describes your situation?</label>
+            <select>
+              <option value="">Select one</option>
+              <option>My contract is due to renew soon</option>
+              <option>I want my current bill audited</option>
+              <option>I'm on a deemed rate and need to fix it</option>
+              <option>I want ongoing energy management support</option>
+              <option>I'm not sure — I just want a conversation</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Anything else we should know</label><textarea placeholder="Optional — annual spend, number of sites, specific concerns. Or leave blank and we'll start from scratch."></textarea></div>
+          <button class="form-submit" onclick="submitForm()">Send this to Better Connected →</button>
+        </div>
+        <div class="success-msg" id="success-msg">
+          <h3>We've got it.</h3>
+          <p>Someone from the team will be back with you within one working day. No automated responses, no holding patterns — a person, reading this, getting back to you.</p>
+        </div>
+      </div>
+      <div class="contact-info">
+        <h3>Before you fill the form in —</h3>
+        <p style="font-size:0.85rem;color:var(--text-mid);line-height:1.75;margin-bottom:1.5rem">A few things worth knowing about how we handle initial enquiries. We don't pass leads to a sales team. The person who responds to your form is a consultant, not an account manager working toward a target. If the first conversation tells us you don't need us, we'll tell you that.</p>
+        <div class="contact-detail">
+          <div class="c-item"><div class="c-item-label">Direct email</div><div class="c-item-val"><a href="mailto:hello@betterconnected.co.uk">hello@betterconnected.co.uk</a></div></div>
+          <div class="c-item"><div class="c-item-label">Phone</div><div class="c-item-val">0330 XXX XXXX<br><span style="font-size:0.78rem;color:var(--text-low)">Mon–Fri, 8am–6pm</span></div></div>
+          <div class="c-item"><div class="c-item-label">Response time</div><div class="c-item-val">Within one working day.<br><span style="font-size:0.78rem;color:var(--text-low)">Usually the same day.</span></div></div>
+        </div>
+        <div class="promise-box">
+          <h4>What happens next</h4>
+          <p>We read your message, we look at your situation, and we come back with a view — not a brochure. If we need your last energy bill to say something useful, we'll ask for it in the reply. If we can give you an initial view without it, we will.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════ FOOTER (shared) -->
+<div id="shared-footer">
+<hr>
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">Better<span>Connected</span></div>
+      <p class="tagline">Energy consultancy. Transparent by design. Honest by default.</p>
+    </div>
+    <div class="footer-col">
+      <h5>What we do</h5>
+      <ul>
+        <li onclick="show('what-we-do')">Procurement &amp; contracts</li>
+        <li onclick="show('what-we-do')">Bill validation</li>
+        <li onclick="show('what-we-do')">Consumption monitoring</li>
+        <li onclick="show('what-we-do')">Net zero advisory</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Energy explained</h5>
+      <ul>
+        <li onclick="showArticle('hh')">Half Hourly meters</li>
+        <li onclick="showArticle('transport')">Transportation charges</li>
+        <li onclick="showArticle('green')">Green levies &amp; CCL</li>
+        <li onclick="showArticle('standing')">Standing charges</li>
+        <li onclick="showArticle('capacity')">Capacity charges</li>
+        <li onclick="showArticle('deemed')">Deemed rate contracts</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li onclick="show('about')">Who we are</li>
+        <li onclick="show('honest')">The honest bit</li>
+        <li onclick="show('who')">Who we work with</li>
+        <li onclick="show('contact')">Talk to us</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Better Connected Energy Ltd. Registered in England &amp; Wales.</p>
+    <p class="footer-strap">Transparent by design. Honest by default.</p>
+  </div>
+</footer>
+</div>
+
+<script>
+const articles = {
+  hh:{
+    title:"Half Hourly meters",
+    body:`<div class="s-label">Energy explained</div>
+<h2>Half Hourly meters: what they are, who needs them, and what they mean for your bill.</h2>
+<p>If your building has a maximum demand of 100kW or above at any point, you are legally required to have a Half Hourly (HH) meter. This isn't optional and it isn't a supplier sales pitch — it is a regulatory requirement under the electricity settlement rules that govern how energy is traded in Great Britain.</p>
+<p>A Half Hourly meter records your electricity consumption in 30-minute intervals, 24 hours a day. That is 48 data points every single day, transmitted automatically to your supplier. This matters because it determines precisely how you are charged — not on an estimated basis, but on your actual, verifiable usage profile.</p>
+<h3>Why the 100kW threshold exists</h3>
+<p>The settlement process for electricity in GB is the mechanism by which the energy consumed across the grid is allocated between suppliers, generators, and trading parties. Below 100kW maximum demand, sites are profiled — their consumption is estimated against a standard load profile for their class of use. Above 100kW, actual half-hourly data is used. The threshold reflects a pragmatic decision made during market design about where metering costs are justified by the accuracy gains.</p>
+<p>If your site has been growing and you're approaching 100kW maximum demand, it's worth knowing that threshold before you cross it — the settlement class change and associated metering upgrade can catch businesses by surprise mid-contract.</p>
+<h3>DUoS bands and time-of-use charging</h3>
+<p>For HH meter customers, Distribution Use of System charges are applied in three time bands: Red, Amber, and Green. Red band periods typically run 4pm to 7pm on weekdays between November and February — periods of peak national electricity demand. Red band rates are often ten to twenty times higher than Green band rates.</p>
+<p>This creates a direct financial incentive to shift consumption away from peak periods. For sites with operational flexibility — batch processing, refrigeration cycling, EV charging schedules — active DUoS management can generate meaningful annual savings without changing suppliers or renegotiating contracts.</p>
+<h3>Triad avoidance</h3>
+<p>TNUoS demand charges — your contribution to the cost of the national transmission network — are calculated based on your consumption during the three highest demand periods on the national grid between November and February. These three half-hours are the Triads, and they are identified retrospectively after the season ends.</p>
+<p>If you can reduce your consumption during likely Triad periods — identified through grid demand forecasting services — your TNUoS demand charge for the following year reduces accordingly. For larger sites, Triad avoidance programmes can save tens of thousands of pounds annually. The challenge is predicting which half-hours will ultimately qualify as Triads; the industry has developed reasonably reliable alert services for this purpose.</p>
+<h3>Common billing errors on HH accounts</h3>
+<p>HH bills are more complex and consequently more error-prone than non-HH bills. The most frequent issues we encounter are DUoS band misclassification — where the settlement system has applied the wrong regional rate structure — and capacity charge settings that haven't been reviewed since site establishment. Both can be corrected retrospectively.</p>
+<div class="callout"><p><strong>If you have a Half Hourly meter</strong> and your bills have never been formally audited, it's worth asking us to look. The complexity that makes HH billing error-prone is the same complexity that creates recovery opportunities when errors are found.</p></div>`
+  },
+  transport:{
+    title:"Transportation charges",
+    body:`<div class="s-label">Energy explained</div>
+<h2>Transportation charges: the part of your electricity bill that has nothing to do with electricity.</h2>
+<p>When you pay for electricity, you are paying for two fundamentally different things. The first is the electricity itself — the commodity, generated somewhere and traded on the wholesale market. The second is the infrastructure that delivers it to your building. Transportation charges cover the second category and typically represent 25–35% of a business electricity bill.</p>
+<h3>Distribution Use of System — DUoS</h3>
+<p>DUoS charges are levied by your local Distribution Network Operator — the company responsible for the cables, transformers, and switching equipment between the high-voltage transmission network and your premises. There are 14 DNOs across Great Britain, each with their own approved charge structure. Rates therefore vary by region and, for Half Hourly customers, by time of use.</p>
+<p>DUoS is typically the largest single transportation component on a business electricity bill. It funds the maintenance and reinforcement of the local distribution network and is set by the DNO and approved by Ofgem through a five-year price review process. Your supplier cannot negotiate DUoS rates — but your classification within the DUoS structure is something that can be challenged if applied incorrectly.</p>
+<h3>Transmission Network Use of System — TNUoS</h3>
+<p>TNUoS charges are levied by National Grid Electricity Transmission for use of the high-voltage transmission system — the infrastructure that carries electricity from power stations to the distribution network. These charges are set nationally rather than regionally and are reviewed annually. For larger sites on Half Hourly meters, the demand element of TNUoS is the basis for Triad avoidance strategies.</p>
+<h3>Balancing Services Use of System — BSUoS</h3>
+<p>BSUoS covers the cost of keeping the grid balanced in real time. At every moment, electricity supply and demand must be matched — this requires National Grid to instruct generators and demand-side responders to increase or decrease output. The cost of those instructions is socialised across all market participants via BSUoS. The charge is volatile — it moves daily based on how difficult balancing was in each settlement period — and is generally passed through at cost in flexible energy contracts.</p>
+<h3>Why these charges appear on your bill</h3>
+<p>None of these charges are set by your supplier. They are set by the networks and National Grid, approved by Ofgem, and passed through to you via the supplier's bill. An all-inclusive fixed-rate contract bundles them into a single unit rate; a pass-through contract shows them as separate line items at their actual values. The former gives price certainty; the latter gives transparency — and occasionally the opportunity to benefit when network charges fall.</p>
+<div class="callout"><p><strong>DUoS misapplication</strong> is one of the most common billing errors we encounter. If your profile class or measurement class has been incorrectly categorised, you may be paying the wrong DUoS rate. Historical audits can identify this and recover the overcharge from your supplier retrospectively.</p></div>`
+  },
+  green:{
+    title:"Green levies & Climate Change Levy",
+    body:`<div class="s-label">Energy explained</div>
+<h2>Green levies and the Climate Change Levy: what you're paying, what it funds, and what you might not have to pay.</h2>
+<p>A meaningful portion of every business energy bill is not payment for energy or network costs — it is a government policy levy. These charges fund renewable energy development, carbon reduction programmes, and climate-related policy commitments. They are passed through by suppliers at rates set by government, and they have grown significantly as a proportion of energy bills over the past decade.</p>
+<h3>The Climate Change Levy</h3>
+<p>The Climate Change Levy (CCL) is a tax on energy used by businesses — it applies to electricity, natural gas, LPG, and solid fuels. It is charged per unit of energy consumed and appears as a separate line item on your bill. The rates are set annually in the government's Budget and have been increasing steadily.</p>
+<p>The CCL was introduced in 2001 with the stated purpose of encouraging businesses to improve energy efficiency and reduce carbon emissions. Whether it has achieved that purpose is a matter of some academic debate; what is unambiguous is that it represents a real and growing cost on business energy bills.</p>
+<h3>CCL exemptions — legitimate and often missed</h3>
+<p>Several categories of business use are exempt from the CCL, and the exemptions are not always applied automatically by suppliers. The most significant are:</p>
+<p>Businesses in Climate Change Agreements (CCAs) — negotiated agreements between energy-intensive sectors and the Environment Agency — can receive an 80–92% discount on CCL rates in exchange for meeting energy efficiency targets. If your sector has a CCA and your business is eligible but not participating, the cost of not participating can be quantified.</p>
+<p>Energy used in certain processes — metallurgical and mineralogical processes, for example — is exempt from CCL. The exemption must be claimed through your supplier using the appropriate declaration form. If the exemption hasn't been claimed, you've been paying CCL you didn't owe.</p>
+<p>Electricity generated on-site from renewable sources and consumed on-site is CCL-exempt. If you have solar, wind, or CHP generation on your premises, the self-consumed element should not attract CCL — but the metering arrangements need to be structured correctly for this to apply.</p>
+<h3>Renewable Obligation Costs</h3>
+<p>The Renewable Obligation (RO) was a government mechanism that required electricity suppliers to source a proportion of their supply from eligible renewable generators. Suppliers met this obligation by acquiring Renewable Obligation Certificates (ROCs) from generators, and the cost of those certificates was passed through to business customers. The RO has been superseded by Contracts for Difference for new projects, but legacy RO costs continue to appear on bills for projects accredited under the old scheme.</p>
+<h3>Feed-in Tariff costs</h3>
+<p>The Feed-in Tariff (FiT) scheme provided guaranteed payments to small-scale renewable generators. The cost of those payments was levied on all electricity consumers via a FiT levy on bills. The scheme closed to new applicants in 2019, but existing FiT contracts continue and the levy continues to fund them.</p>
+<h3>REGOs and what they don't mean</h3>
+<p>Renewable Energy Guarantees of Origin (REGOs) are certificates issued for each megawatt-hour of electricity generated from eligible renewable sources. Suppliers use them to substantiate claims that their tariff is backed by renewable energy. The problem is that REGOs and the physical electricity are traded separately — a supplier can buy REGOs without buying the renewable electricity those certificates represent, and legitimately describe the resulting tariff as "100% renewable."</p>
+<p>This is legal. It is also, in our view, misleading. Buying a REGO-backed green tariff does not mean additional renewable generation is being built or that the electrons powering your building are from renewable sources. It means you've paid for a certificate. Understanding this distinction is important when evaluating whether a green tariff premium is worth paying.</p>
+<div class="callout"><p><strong>If you haven't reviewed your CCL position recently</strong> — particularly if your business has changed activity, if you operate energy-intensive processes, or if you have on-site generation — it's worth doing so. Unclaimed exemptions are not retrospectively applied by HMRC or your supplier without a claim. The starting point is a review of your current declarations.</p></div>`
+  },
+  standing:{
+    title:"Standing charges",
+    body:`<div class="s-label">Energy explained</div>
+<h2>Standing charges: the daily fixed cost that has nothing to do with how much energy you use.</h2>
+<p>Every business energy contract includes a standing charge — a fixed amount payable every day regardless of how much energy the premises consumes. It is sometimes described as a connection fee, a supply charge, or a meter rental element, but the principle is the same: it's the cost of being connected to the grid and having a live supply, independent of usage.</p>
+<h3>What the standing charge actually covers</h3>
+<p>The standing charge bundles several fixed costs of supply. The largest component is typically the network standing charge — the portion of your distribution network costs that is fixed rather than consumption-related. This covers the DNO's fixed costs of maintaining the connection to your premises. There is also a supplier administration element — the cost of maintaining your account, processing your bills, and managing the metering data — and in some cases a separate meter rental or data collection charge.</p>
+<p>On some contract structures, particularly for larger sites, elements such as data retrieval fees, data aggregation fees, and meter operator charges appear separately rather than within the standing charge. On simpler tariffs, they are consolidated. The total fixed daily cost is the number that matters for comparison purposes, regardless of how it is presented.</p>
+<h3>Why standing charges vary so much between suppliers</h3>
+<p>Standing charges for the same site can vary significantly between supplier quotes, which strikes many buyers as strange given that the underlying network costs are the same. The variation reflects how suppliers choose to apportion their total required revenue between the fixed and variable elements of the tariff. A supplier offering a low unit rate and high standing charge is achieving the same total revenue as one offering a high unit rate and low standing charge — the choice of structure reflects assumptions about your consumption volume and the profile of their customer base.</p>
+<p>For lower-consumption sites, a high standing charge relative to unit rate is generally unfavourable. For high-consumption sites, a low standing charge with a slightly higher unit rate may result in lower total bills. The comparison has to be done on the basis of your actual consumption, not headline rates.</p>
+<h3>What is and isn't negotiable</h3>
+<p>The network element of the standing charge is set by the DNO and is not negotiable — it is a pass-through cost that every supplier faces and passes on. The supplier administration element and meter charges have more flexibility, particularly for larger accounts and multi-site portfolios where the supplier's per-account fixed cost is spread across greater revenue. For smaller accounts, the standing charge is largely non-negotiable in isolation, but forms part of the overall contract economics that we work with in procurement.</p>
+<div class="callout"><p><strong>Standing charge duplication</strong> is an error we find more often than it should occur — particularly on sites that have changed supplier mid-year or where a contract renewal was processed while an old direct debit was still active. If your bills show two standing charge lines, or a standing charge on a period when your premises was unoccupied, the overcharge is recoverable.</p></div>`
+  },
+  capacity:{
+    title:"Capacity charges & kVA",
+    body:`<div class="s-label">Energy explained</div>
+<h2>Capacity charges and maximum demand: the charge for electricity you might never use.</h2>
+<p>For sites connected above a certain voltage level — typically those with a maximum demand above around 100kW — the local distribution network charges for the capacity it reserves for your site as well as the energy you actually consume. This capacity charge is based on your agreed or assessed maximum demand in kilovolt-amperes (kVA), and it appears on your bill whether or not you ever draw anywhere near that level of power.</p>
+<h3>Why maximum demand charging exists</h3>
+<p>The distribution network has to be sized to cope with peak demand. If your site could theoretically draw 500kW at any moment, the cables, transformers, and switchgear serving your premises must be capable of delivering that load. The DNO incurs a cost to provide that capability, regardless of whether you use it. Maximum demand charges are the mechanism by which that cost is recovered.</p>
+<p>The charge is calculated on either your agreed capacity — set in your connection agreement with the DNO — or your measured maximum demand over a recent period, depending on the metering and contract arrangement. The key point is that it is based on the maximum you could draw, not the average or typical draw.</p>
+<h3>Why capacity settings are often wrong</h3>
+<p>Maximum demand settings are typically established when a site is first connected or when a major upgrade is carried out. They are rarely reviewed proactively. A factory that was set up for a production line that has since been decommissioned, an office building that was built with provision for equipment that was never installed, or a commercial site that has reduced its operations — all of these may be carrying a capacity setting that reflects a historical peak, not the current or likely future reality.</p>
+<p>Reducing your maximum demand setting requires an application to the DNO and potentially a survey of the site. It is not instantaneous, and DNOs have processes that can take months to complete. But the saving, once implemented, is ongoing — it reduces your bill permanently for as long as your actual demand remains below the new assessed level.</p>
+<h3>Excess demand charges</h3>
+<p>The reverse risk also exists. If your actual maximum demand exceeds your agreed capacity in a given period, your supplier may apply an excess demand charge — sometimes at a significantly higher rate than the standard capacity charge. If your site has grown, if new equipment has been installed, or if demand patterns have changed, it is worth verifying that your current agreed capacity is not regularly being exceeded.</p>
+<div class="callout"><p><strong>A capacity review costs nothing upfront.</strong> We look at your Half Hourly maximum demand data, compare it to your agreed capacity, and advise whether a reduction application to the DNO is justified and what the likely annual saving would be. If the numbers support it, we manage the application process with the DNO on your behalf.</p></div>`
+  },
+  deemed:{
+    title:"Deemed rate contracts",
+    body:`<div class="s-label">Energy explained</div>
+<h2>Deemed rate contracts: what happens when your energy contract expires — and how expensive it is.</h2>
+<p>When a fixed-term energy contract reaches its end date and is not actively renewed or switched, the supply does not simply stop. Your existing supplier continues to provide energy but at a different — and substantially less favourable — rate structure. This is a deemed contract, and the rates applied are typically the supplier's out-of-contract rates, which are not set to be competitive.</p>
+<h3>Why deemed rates are so much higher</h3>
+<p>Suppliers are legally required to continue supply to premises that are not under a contracted arrangement, and they are permitted to charge deemed rates for doing so. Those rates are set unilaterally by the supplier and are not subject to the competitive market pressure that fixed contract rates face. In practice, deemed rates for electricity have historically been two to three times the equivalent contracted rate. The supplier has no incentive to make them competitive — they are a commercial consequence of contract lapse, not a market offer.</p>
+<p>Deemed rates are also variable — the supplier can change them without notice, subject to regulatory requirements. There is no price certainty, no defined duration, and no consumer protection equivalent to the cooling-off periods and terms disclosure requirements that apply to contracted supply.</p>
+<h3>How businesses end up on deemed rates</h3>
+<p>The most common route is simple oversight. A contract signed three years ago with a two-year initial term and a rolling monthly extension has quietly moved onto different rate terms. Without active contract management, the expiry can pass unnoticed — particularly for businesses where energy management isn't a dedicated function.</p>
+<p>Auto-renewal clauses add another layer of complexity. Some contracts include provisions that automatically roll onto a new fixed term — often at a higher rate — if notice is not given within a specified window before expiry. The notice window is frequently 90 to 120 days, and missing it can lock a business into another full contract term on unfavourable terms. Whether a rollover of this nature is enforceable depends on the specific contract terms and how clearly the clause was presented — it's an area where we have successfully challenged suppliers on clients' behalf.</p>
+<h3>What to do if you're already on a deemed rate</h3>
+<p>The immediate priority is to get off it. A new fixed contract can typically be arranged and effective within 28 days for most sites. Every day on deemed rates is a cost that a contracted rate would not incur. We have found businesses that have been on deemed rates for over a year, entirely unaware that their contract had lapsed — the bill format didn't change visibly enough to trigger investigation.</p>
+<p>If you're uncertain whether your current supply is contracted or deemed, the first step is to check the contract documentation — not the direct debit, which continues regardless — and to confirm the current rate structure with your supplier directly. If you can't access the original contract, we can help establish the current position.</p>
+<div class="callout"><p><strong>If you think you may be on a deemed rate</strong> — or if you're not certain what rate structure you're currently on — send us your last bill and we'll tell you within 24 hours. It's the kind of thing that takes us minutes and can make a material difference to your monthly outgoings.</p></div>`
+  },
+  regos:{
+    title:"REGOs & green tariffs",
+    body:`<div class="s-label">Energy explained</div>
+<h2>REGOs and green tariffs: the difference between renewable accounting and renewable energy.</h2>
+<p>Green energy tariffs have become a standard feature of the business energy market. Every major supplier offers one; most describe their product as "100% renewable electricity." What this claim means in practice is more complex than the marketing suggests, and understanding the distinction matters — both for budgeting decisions and for any sustainability reporting your business undertakes.</p>
+<h3>What a REGO is</h3>
+<p>A Renewable Energy Guarantee of Origin (REGO) is a certificate issued by Ofgem for every megawatt-hour of electricity generated from eligible renewable sources — wind, solar, hydro, biomass. The certificate is issued to the generator and can be sold separately from the electricity itself. Suppliers acquire REGOs to substantiate claims that their electricity is renewable.</p>
+<p>The critical point is that REGOs and the physical electricity are traded in entirely separate markets. A supplier can purchase electricity from a gas-fired power station and separately purchase REGOs from a wind farm. The electricity arriving at your premises is physically identical — the grid is a network, not a pipeline — but the supplier has acquired the certificates that allow them to describe the supply as renewable.</p>
+<h3>What "100% renewable electricity" actually means on most green tariffs</h3>
+<p>On the majority of green tariffs in the market, "100% renewable" means the supplier has acquired enough REGOs to match the volume of electricity they sell to you. It does not mean a single wind turbine was built to supply your business. It does not mean additional renewable capacity was added to the grid as a result of your contract. It means certificates changed hands.</p>
+<p>This is legal, it is regulated, and it is widely practised. Whether it is useful for your sustainability reporting depends entirely on the reporting framework you operate under and how your stakeholders interpret it. Some frameworks accept REGO-backed supply as evidence of renewable energy procurement; others require evidence of additionality — that the renewable energy was specifically contracted in a way that supports new generation.</p>
+<h3>Power Purchase Agreements and genuine additionality</h3>
+<p>A Power Purchase Agreement (PPA) is a direct long-term contract between a business and a renewable generator. The business agrees to buy the generator's output at an agreed price for an agreed term. This provides the generator with revenue certainty that supports financing the project — and in some cases, building it. PPAs can genuinely represent additionality: they fund renewable capacity that would not otherwise exist.</p>
+<p>PPAs are not appropriate for all businesses — the minimum volumes required and the contract lengths involved mean they are generally suited to larger energy consumers. But for businesses with genuine sustainability commitments and the consumption profile to support a PPA, the difference between this and a standard green tariff is not cosmetic.</p>
+<div class="callout"><p><strong>Our position on green tariffs:</strong> We will explain what you're actually buying before you buy it. If a REGO-backed tariff meets your reporting requirements and the cost is justified, we'll help you procure one. If you want genuine renewable supply, we'll show you what that actually involves and what it would cost. We won't describe one as the other.</p></div>`
+  },
+  flex:{
+    title:"Fixed vs flexible contracts",
+    body:`<div class="s-label">Energy explained</div>
+<h2>Fixed vs flexible energy contracts: when each makes sense and the risks both carry.</h2>
+<p>The choice between a fixed-price and a flexible energy contract is one of the most consequential decisions in energy procurement — and one that is frequently made by default rather than by deliberate strategy. Understanding the structure of each, and the conditions under which each performs well, is the starting point for making an informed choice.</p>
+<h3>Fixed-price contracts</h3>
+<p>A fixed-price contract locks in your unit rate for the duration of the agreement — typically one to three years. The supplier buys forward energy on the wholesale market to cover your forecast consumption, loads their margin and fixed costs, and quotes you a rate that won't change for the contract term regardless of what happens in the wholesale market.</p>
+<p>The benefit is certainty. Your energy cost per unit is known from day one and budget planning is straightforward. The cost of that certainty is the margin the supplier applies for taking the price risk onto their own book, and the risk that wholesale prices fall significantly after you fix — leaving you paying above the market rate for the remainder of the term.</p>
+<p>Fixed contracts also carry volume risk. Most fixed contracts include a tolerance band — typically 10–20% around your forecast consumption — within which the fixed rate applies. Significant over- or under-consumption relative to forecast can trigger reconciliation charges or expose the out-of-tolerance volume to spot market rates.</p>
+<h3>Flexible procurement</h3>
+<p>A flexible procurement contract allows a business to purchase energy in the wholesale market over time rather than all at once. The contract runs for a defined period, but the energy is bought in tranches — at different points in the market cycle — with the final blended rate determined by the average of those purchases.</p>
+<p>The potential benefit is a lower average price, achieved by spreading purchases across market cycles and buying into dips rather than fixing at a single point. The risk is the reverse — prices may move against you between purchase decisions, and the final rate may exceed what was available at the point of contract commencement. Flexible procurement requires active market engagement and a risk management strategy; it is not a passive product.</p>
+<p>Flexible contracts are generally appropriate for businesses with consumption above around £100,000 per year, where the potential saving from market participation justifies the additional complexity and the cost of the procurement management service typically associated with them.</p>
+<h3>Making the decision</h3>
+<p>The choice between fixed and flexible is not simply about market view — it is about risk appetite, consumption volume, internal resource, and the degree to which budget certainty has value in your planning process. A business with tight margins and low tolerance for cost variability is likely to be better served by a fixed contract at a slightly higher expected cost than by a flexible contract that introduces uncertainty. A business with the scale and appetite to engage with market risk has more to gain from flexible procurement — but needs to approach it with a clear strategy rather than simply hoping the market moves in their favour.</p>
+<div class="callout"><p><strong>Our default position:</strong> We recommend the contract structure that fits your risk profile and consumption characteristics — not the one that generates the most visible activity on our part. For most businesses in the mid-market, a well-timed fixed contract remains the most appropriate outcome. We'll tell you clearly when we think flexible is the better option, and why.</p></div>`
+  }
+};
+
+function show(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.classList.remove('active');
+    if(a.id==='nav-'+page) a.classList.add('active');
+  });
+  window.scrollTo(0,0);
+  // move footer
+  const footer = document.getElementById('shared-footer');
+  document.getElementById('page-'+page).appendChild(footer);
+}
+
+function showArticle(id){
+  const a = articles[id];
+  if(!a) return;
+  document.getElementById('article-crumb').textContent = a.title;
+  document.getElementById('article-body').innerHTML = a.body;
+  show('article');
+}
+
+async function submitForm(){
+  const btn = document.querySelector('.form-submit');
+  btn.textContent='Sending...';
+  btn.disabled=true;
+  const inputs = document.querySelectorAll('#contact-form input, #contact-form textarea, #contact-form select');
+  const data = new FormData();
+  data.append('name', inputs[0].value);
+  data.append('business', inputs[1].value);
+  data.append('email', inputs[2].value);
+  data.append('phone', inputs[3].value);
+  data.append('situation', inputs[4].value);
+  data.append('message', inputs[5].value);
+  try{
+    const r = await fetch('https://formspree.io/f/mdapojrn',{method:'POST',body:data,headers:{Accept:'application/json'}});
+    if(r.ok){
+      document.getElementById('contact-form').style.display='none';
+      document.getElementById('success-msg').style.display='block';
+    } else {
+      btn.textContent='Something went wrong — try again';
+      btn.disabled=false;
+    }
+  } catch(e){
+    btn.textContent='Something went wrong — try again';
+    btn.disabled=false;
+  }
+}
+
+show('home');
+</script>
+</body>
+</html>
