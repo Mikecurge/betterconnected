@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>BC Portal — Renewals</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0a0a0a;--surface:#111;--s2:#161616;--s3:#1a1a1a;
+  --lime:#c8f542;--lime-dim:rgba(200,245,66,0.09);--lime-border:rgba(200,245,66,0.22);
+  --text:#f0ede8;--tm:rgba(240,237,232,0.58);--tl:rgba(240,237,232,0.28);
+  --border:rgba(255,255,255,0.07);--bm:rgba(255,255,255,0.12);
+  --amber:#f5a623;--red:#e05252;--green:#5cb85c;--blue:#4a9eff;
+}
+html{-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh}
+
+/* HEADER */
+header{display:flex;justify-content:space-between;align-items:center;padding:0.85rem 1.5rem;border-bottom:1px solid var(--border);background:rgba(10,10,10,0.97);position:sticky;top:0;z-index:200;backdrop-filter:blur(8px);gap:1rem;flex-wrap:wrap}
+.h-left{display:flex;align-items:center;gap:0.75rem}
+.wm{font-size:0.88rem;font-weight:700;letter-spacing:-0.02em;color:var(--text)}
+.wm span{color:var(--lime)}
+.badge{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;background:var(--lime-dim);border:1px solid var(--lime-border);color:var(--lime);padding:0.2rem 0.55rem;border-radius:3px;font-weight:600}
+.nav-links{display:flex;gap:0.25rem}
+.nav-links a{font-size:0.75rem;color:var(--tl);text-decoration:none;padding:0.35rem 0.75rem;border-radius:3px;cursor:pointer;transition:all 0.15s}
+.nav-links a:hover{color:var(--text);background:var(--s2)}
+.nav-links a.active{color:var(--lime);background:var(--lime-dim)}
+.h-right{font-size:0.68rem;color:var(--tl);letter-spacing:0.06em;text-transform:uppercase}
+
+/* WRAP */
+.wrap{padding:1.5rem;max-width:960px}
+
+/* LOCK SCREEN */
+.lock-screen{position:fixed;inset:0;background:var(--bg);z-index:400;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-screen.hidden{display:none}
+.lock-box{background:var(--surface);border:1px solid var(--bm);border-radius:8px;padding:2rem;width:100%;max-width:360px;text-align:center}
+.lock-box h2{font-size:1rem;font-weight:600;margin-bottom:0.35rem}
+.lock-box p{font-size:0.8rem;color:var(--tm);margin-bottom:1.5rem;line-height:1.6}
+.lock-box .lock-icon{font-size:2rem;margin-bottom:0.75rem;display:block}
+.pin-input{width:100%;background:var(--s2);border:1px solid var(--bm);border-radius:4px;padding:0.75rem 1rem;color:var(--text);font-size:1.1rem;text-align:center;letter-spacing:0.3em;outline:none;font-family:monospace;margin-bottom:0.75rem;transition:border-color 0.15s}
+.pin-input:focus{border-color:var(--lime)}
+.pin-input.error{border-color:var(--red)}
+.btn-unlock{width:100%;padding:0.85rem;background:var(--lime);color:#0a0a0a;border:none;border-radius:4px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:opacity 0.15s}
+.btn-unlock:hover{opacity:0.88}
+.lock-err{font-size:0.75rem;color:var(--red);min-height:1rem;margin-top:0.35rem}
+.lock-note{font-size:0.7rem;color:var(--tl);max-width:280px;text-align:center;line-height:1.6}
+
+/* STAT CARDS */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem;margin-bottom:1.5rem}
+@media(min-width:600px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1rem 1.1rem}
+.stat-card .n{font-size:1.8rem;font-weight:800;letter-spacing:-0.04em;line-height:1}
+.stat-card .l{font-size:0.65rem;color:var(--tl);text-transform:uppercase;letter-spacing:0.1em;margin-top:0.35rem}
+.stat-card .sub{font-size:0.72rem;color:var(--tm);margin-top:0.25rem}
+.n-lime{color:var(--lime)}
+.n-amber{color:var(--amber)}
+.n-red{color:var(--red)}
+.n-green{color:var(--green)}
+
+/* CONTROLS */
+.controls{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem;align-items:center}
+.search-wrap{position:relative;flex:1;min-width:180px}
+.search-wrap input{width:100%;background:var(--surface);border:1px solid var(--bm);border-radius:4px;padding:0.55rem 0.75rem 0.55rem 2rem;color:var(--text);font-size:0.82rem;outline:none;transition:border-color 0.15s}
+.search-wrap input:focus{border-color:var(--lime)}
+.search-icon{position:absolute;left:0.65rem;top:50%;transform:translateY(-50%);color:var(--tl);font-size:12px;pointer-events:none}
+select.filter{background:var(--surface);border:1px solid var(--bm);border-radius:4px;padding:0.55rem 0.75rem;color:var(--tm);font-size:0.78rem;outline:none;cursor:pointer;-webkit-appearance:none;transition:border-color 0.15s}
+select.filter:focus{border-color:var(--lime)}
+select.filter option{background:var(--s2)}
+
+/* TABLE — 3 columns only, no sensitive data */
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.table-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:0.82rem}
+thead th{background:var(--s2);padding:0.65rem 1rem;text-align:left;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--tl);white-space:nowrap;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;transition:color 0.15s}
+thead th:hover{color:var(--text)}
+thead th.sorted{color:var(--lime)}
+tbody tr{border-bottom:1px solid var(--border);transition:background 0.1s;cursor:pointer}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--s2)}
+tbody td{padding:0.65rem 1rem;color:var(--tm)}
+tbody td.name-cell{color:var(--text);font-weight:500}
+.tag{display:inline-block;font-size:0.62rem;padding:0.18rem 0.55rem;border-radius:2px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase}
+.tag-ren{background:rgba(74,158,255,0.12);color:var(--blue)}
+.tag-acq{background:rgba(200,245,66,0.1);color:var(--lime)}
+.tag-hh{background:rgba(245,166,35,0.12);color:var(--amber)}
+.tag-nhh{background:rgba(255,255,255,0.06);color:var(--tl)}
+.tag-g{background:rgba(92,184,92,0.12);color:var(--green)}
+.days-pill{display:inline-block;padding:0.2rem 0.65rem;border-radius:10px;font-size:0.72rem;font-weight:600}
+.days-urgent{background:rgba(224,82,82,0.15);color:var(--red)}
+.days-warn{background:rgba(245,166,35,0.15);color:var(--amber)}
+.days-ok{background:rgba(92,184,92,0.12);color:var(--green)}
+.days-far{background:rgba(255,255,255,0.05);color:var(--tl)}
+.no-results{text-align:center;padding:3rem;color:var(--tl);font-size:0.85rem}
+
+/* LOCKED DETAIL ROW */
+.lock-row{display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;color:var(--tl);padding:0.5rem 1rem;background:var(--s3)}
+.lock-row svg{opacity:0.35}
+
+/* PAGINATION */
+.pagination{display:flex;justify-content:space-between;align-items:center;padding:0.75rem 1rem;border-top:1px solid var(--border);background:var(--s2);flex-wrap:wrap;gap:0.5rem}
+.page-info{font-size:0.72rem;color:var(--tl)}
+.page-btns{display:flex;gap:0.4rem}
+.page-btn{padding:0.3rem 0.65rem;border:1px solid var(--bm);border-radius:3px;background:none;color:var(--tm);font-size:0.72rem;cursor:pointer;transition:all 0.15s}
+.page-btn:hover:not(:disabled){border-color:var(--lime);color:var(--lime)}
+.page-btn:disabled{opacity:0.3;cursor:not-allowed}
+.page-btn.active{background:var(--lime-dim);border-color:var(--lime-border);color:var(--lime)}
+
+/* DETAIL PANEL — requires re-auth for full data */
+.detail-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:300;align-items:flex-start;justify-content:flex-end;padding:0.75rem}
+.detail-overlay.open{display:flex}
+.detail-panel{background:var(--surface);border:1px solid var(--bm);border-radius:8px;width:400px;max-width:100%;max-height:calc(100vh - 1.5rem);overflow-y:auto}
+.dp-header{display:flex;justify-content:space-between;align-items:flex-start;padding:1.25rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface)}
+.dp-title{font-size:0.95rem;font-weight:600;line-height:1.3}
+.dp-sub{font-size:0.72rem;color:var(--tl);margin-top:0.25rem}
+.dp-close{background:none;border:none;color:var(--tl);cursor:pointer;font-size:1.2rem;padding:0.1rem;flex-shrink:0}
+.dp-body{padding:1.25rem}
+.dp-locked-msg{text-align:center;padding:1.5rem 1rem}
+.dp-locked-msg p{font-size:0.82rem;color:var(--tm);margin-bottom:1rem;line-height:1.6}
+.dp-locked-msg .lock-sm{font-size:1.5rem;display:block;margin-bottom:0.75rem;opacity:0.5}
+.dp-section-title{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--lime);margin-bottom:0.65rem;font-weight:600}
+.dp-row{display:flex;justify-content:space-between;padding:0.45rem 0;border-bottom:1px solid var(--border);font-size:0.8rem}
+.dp-row:last-child{border-bottom:none}
+.dp-label{color:var(--tl)}
+.dp-value{color:var(--text);text-align:right;font-weight:500}
+.dp-section{margin-bottom:1.25rem}
+.dp-actions{padding:1rem 1.25rem;border-top:1px solid var(--border);display:flex;gap:0.5rem}
+.dp-btn{flex:1;padding:0.65rem;border:none;border-radius:4px;font-size:0.78rem;font-weight:600;cursor:pointer}
+.dp-btn-p{background:var(--lime);color:#0a0a0a}
+.dp-btn-s{background:var(--s3);color:var(--tm);border:1px solid var(--bm)}
+
+/* RE-AUTH PANEL */
+.reauth{padding:1.25rem;border-top:1px solid var(--border)}
+.reauth label{font-size:0.68rem;color:var(--tl);letter-spacing:0.08em;text-transform:uppercase;display:block;margin-bottom:0.4rem}
+.reauth input{width:100%;background:var(--s2);border:1px solid var(--bm);border-radius:4px;padding:0.6rem 0.75rem;color:var(--text);font-size:0.9rem;letter-spacing:0.25em;text-align:center;outline:none;font-family:monospace;margin-bottom:0.5rem;transition:border-color 0.15s}
+.reauth input:focus{border-color:var(--lime)}
+.reauth input.error{border-color:var(--red)}
+.reauth button{width:100%;padding:0.65rem;background:var(--lime);color:#0a0a0a;border:none;border-radius:4px;font-size:0.82rem;font-weight:700;cursor:pointer}
+.reauth-err{font-size:0.72rem;color:var(--red);text-align:center;min-height:1rem;margin-bottom:0.35rem}
+
+/* SUPABASE CALLOUT */
+.sb-callout{background:var(--s2);border:1px solid var(--lime-border);border-radius:4px;padding:0.85rem 1rem;margin-bottom:1.5rem;display:flex;gap:0.75rem;align-items:flex-start}
+.sb-callout .sb-icon{color:var(--lime);font-size:1rem;flex-shrink:0;margin-top:0.1rem}
+.sb-callout p{font-size:0.75rem;color:var(--tm);line-height:1.6}
+.sb-callout strong{color:var(--text)}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--lime-border);color:var(--lime);padding:0.65rem 1.25rem;border-radius:4px;font-size:0.82rem;z-index:500;opacity:0;transition:opacity 0.2s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<!-- ══ LOCK SCREEN ══ -->
+<div class="lock-screen" id="lock-screen">
+  <div class="lock-box">
+    <span class="lock-icon">🔒</span>
+    <h2>Team portal access</h2>
+    <p>This area is restricted to Better Connected team members. Enter your portal PIN to continue.</p>
+    <input class="pin-input" id="pin-input" type="password" maxlength="6" placeholder="······" autocomplete="off" oninput="clearPinErr()" onkeydown="if(event.key==='Enter')checkPin()">
+    <div class="lock-err" id="pin-err"></div>
+    <button class="btn-unlock" onclick="checkPin()">Unlock portal →</button>
+  </div>
+  <p class="lock-note">This page is not indexed by search engines and is not linked from any public page. For team use only.</p>
+</div>
+
+<!-- ══ MAIN APP (hidden until unlocked) ══ -->
+<div id="app" style="display:none">
+
+<header>
+  <div class="h-left">
+    <div class="wm">Better<span>Connected</span></div>
+    <div class="badge">Team Portal</div>
+  </div>
+  <div class="nav-links">
+    <a href="/team">Contract Entry</a>
+    <a href="/renewals" class="active">Renewals</a>
+  </div>
+  <div class="h-right" id="last-updated">Beta · Sandbox</div>
+</header>
+
+<div class="wrap">
+
+  <!-- SUPABASE CALLOUT -->
+  <div class="sb-callout">
+    <div class="sb-icon">⚡</div>
+    <p><strong>Sandbox mode — Beta v1.0.</strong> Full data is protected. This view shows name, supply type and urgency only. Sensitive fields (meter refs, consumption, rates, commission) load via Supabase API on verified request. Connect Supabase + Vercel to enable full authenticated access.</p>
+  </div>
+
+  <!-- STATS — counts only, no sensitive values -->
+  <div class="stats">
+    <div class="stat-card"><div class="n n-lime" id="stat-total">—</div><div class="l">Total supplies</div><div class="sub">Beta load</div></div>
+    <div class="stat-card"><div class="n n-red" id="stat-urgent">—</div><div class="l">Urgent &lt;90 days</div><div class="sub">to contract start</div></div>
+    <div class="stat-card"><div class="n n-amber" id="stat-warn">—</div><div class="l">Due 90–180 days</div><div class="sub">to contract start</div></div>
+    <div class="stat-card"><div class="n n-green" id="stat-ren">—</div><div class="l">Renewals</div><div class="sub">vs acquisitions</div></div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="search" placeholder="Search by company name..." oninput="applyFilters()">
+    </div>
+    <select class="filter" id="filter-type" onchange="applyFilters()">
+      <option value="">All supply types</option>
+      <option value="NHH">NHH Electricity</option>
+      <option value="HH">HH Electricity</option>
+      <option value="G">Gas</option>
+    </select>
+    <select class="filter" id="filter-sale" onchange="applyFilters()">
+      <option value="">All sale types</option>
+      <option value="REN">Renewals</option>
+      <option value="ACQ">Acquisitions</option>
+    </select>
+    <select class="filter" id="filter-urgency" onchange="applyFilters()">
+      <option value="">All urgency</option>
+      <option value="urgent">Urgent &lt;90 days</option>
+      <option value="warn">Due 90–180 days</option>
+      <option value="ok">180–365 days</option>
+      <option value="far">&gt;365 days</option>
+    </select>
+    <select class="filter" id="filter-person" onchange="applyFilters()">
+      <option value="">All consultants</option>
+    </select>
+  </div>
+
+  <!-- TABLE — 3 visible columns only -->
+  <div class="table-wrap">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th onclick="sortBy('name')" id="th-name">Company name <span id="s-name"></span></th>
+            <th onclick="sortBy('type')" id="th-type">Supply type <span id="s-type"></span></th>
+            <th onclick="sortBy('sale')" id="th-sale">Sale type <span id="s-sale"></span></th>
+            <th onclick="sortBy('person')" id="th-person">Consultant <span id="s-person"></span></th>
+            <th onclick="sortBy('days')" id="th-days">Days to CSD <span id="s-days"></span></th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+    <div class="pagination" id="pagination">
+      <div class="page-info" id="page-info"></div>
+      <div class="page-btns" id="page-btns"></div>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+</div><!-- /app -->
+
+<!-- DETAIL PANEL -->
+<div class="detail-overlay" id="detail-overlay" onclick="closeDetailOut(event)">
+  <div class="detail-panel">
+    <div class="dp-header">
+      <div><div class="dp-title" id="dp-name">—</div><div class="dp-sub" id="dp-sub">—</div></div>
+      <button class="dp-close" onclick="closeDetail()">✕</button>
+    </div>
+    <div class="dp-body" id="dp-body">
+      <!-- Safe public fields shown immediately -->
+      <div class="dp-section" id="dp-public"></div>
+      <!-- Sensitive fields locked behind re-auth -->
+      <div id="dp-sensitive-wrap">
+        <div class="dp-locked-msg" id="dp-locked-msg">
+          <span class="lock-sm">🔐</span>
+          <p>Meter references, consumption data, rates and commission details are protected. Enter your PIN again to view full record details for this supply.</p>
+        </div>
+        <div class="reauth" id="reauth-form">
+          <label>Re-enter portal PIN to view sensitive data</label>
+          <input type="password" id="reauth-input" maxlength="6" placeholder="······" autocomplete="off" onkeydown="if(event.key==='Enter')checkReauth()">
+          <div class="reauth-err" id="reauth-err"></div>
+          <button onclick="checkReauth()">View full record →</button>
+        </div>
+        <div id="dp-sensitive" style="display:none">
+          <!-- Populated only after re-auth -->
+        </div>
+      </div>
+    </div>
+    <div class="dp-actions">
+      <button class="dp-btn dp-btn-p" onclick="showToast('Connect contract entry to pre-fill from this record')">Create contract</button>
+      <button class="dp-btn dp-btn-s" onclick="lockDetail()">🔒 Lock record</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ══════════════════════════════════════════
+   SECURITY NOTE:
+   - Only name, supply type, sale type,
+     consultant and days-to-CSD are in JS.
+   - All sensitive fields (meter, EAC, uplift,
+     CSD date, CED date, value, commission)
+     are NOT present in this file at all.
+   - They will be fetched from Supabase API
+     after authenticated request in v1.1.
+   - The full data object below contains ONLY
+     the display-safe fields needed for the
+     public table view.
+   ══════════════════════════════════════════ */
+
+const DISPLAY_DATA = [
+  {id:1, name:"Somerford Foods Ltd",            type:"NHH", sale:"REN", person:"Internal", days:217},
+  {id:2, name:"Rimex Investments Ltd",           type:"NHH", sale:"REN", person:"CJ",       days:156},
+  {id:3, name:"Four Paws Groom School Ltd",      type:"NHH", sale:"REN", person:"CJ",       days:156},
+  {id:4, name:"Brook Street Garage",             type:"NHH", sale:"REN", person:"Internal", days:139},
+  {id:5, name:"Cov Cats",                        type:"NHH", sale:"REN", person:"Internal", days:131},
+  {id:6, name:"Robert Edwards Ltd",              type:"NHH", sale:"REN", person:"Internal", days:127},
+  {id:7, name:"Clipstone Miners Welfare Community Trust", type:"NHH", sale:"REN", person:"Internal", days:126},
+  {id:8, name:"TR Property Investment Trust PLC",type:"NHH", sale:"REN", person:"Internal", days:125},
+  {id:9, name:"X.L.Properties (Brighouse) — Hartley's Confectioners (1)",type:"HH",  sale:"REN", person:"Internal", days:125},
+  {id:10,name:"X.L.Properties (Brighouse) — Hartley's Confectioners (2)",type:"NHH", sale:"REN", person:"Internal", days:125},
+  {id:11,name:"Spectrum Security Services Ltd",  type:"NHH", sale:"REN", person:"CJ",       days:125},
+  {id:12,name:"Hillcrest — Mr Richard Sheldon",  type:"HH",  sale:"REN", person:"Internal", days:125},
+  {id:13,name:"Abberley Court No 1 RTM Company Ltd",type:"NHH",sale:"REN",person:"Internal",days:125},
+  {id:14,name:"Kensington Vale Properties Ltd",  type:"NHH", sale:"REN", person:"Internal", days:125},
+  {id:15,name:"Abberley Court No 2 RTM Company Ltd",type:"NHH",sale:"REN",person:"Internal",days:125},
+  {id:16,name:"The Old Berkeswell Bakery Management Co Ltd (A)",type:"NHH",sale:"REN",person:"Internal",days:125},
+  {id:17,name:"The Old Berkeswell Bakery Management Co Ltd (B)",type:"NHH",sale:"REN",person:"Internal",days:125},
+  {id:18,name:"Cornish Arms",                    type:"HH",  sale:"ACQ", person:"Internal", days:125},
+  {id:19,name:"Clipstone Miners Welfare Community Trust (Gas)",type:"G",sale:"REN",person:"Internal",days:124},
+];
+
+/* ── PIN — change this before deploying ── */
+/* NOTE: In production this moves to Supabase Auth / Vercel middleware */
+/* This is a temporary sandbox gate only */
+const _k = btoa('bc2025');  /* base: bc2025 — change before upload */
+
+let unlocked = false;
+let detailReauthed = false;
+let currentRecord = null;
+let filtered = [...DISPLAY_DATA];
+let sortCol = 'days';
+let sortDir = 1;
+let page = 0;
+const PER = 20;
+
+/* ── LOCK / UNLOCK ── */
+function checkPin(){
+  const v = document.getElementById('pin-input').value;
+  if(btoa(v) === _k){
+    unlocked = true;
+    document.getElementById('lock-screen').classList.add('hidden');
+    document.getElementById('app').style.display = 'block';
+    init();
+  } else {
+    document.getElementById('pin-input').classList.add('error');
+    document.getElementById('pin-err').textContent = 'Incorrect PIN. Please try again.';
+    document.getElementById('pin-input').value = '';
+  }
+}
+function clearPinErr(){
+  document.getElementById('pin-input').classList.remove('error');
+  document.getElementById('pin-err').textContent = '';
+}
+
+/* ── RE-AUTH FOR DETAIL ── */
+function checkReauth(){
+  const v = document.getElementById('reauth-input').value;
+  if(btoa(v) === _k){
+    detailReauthed = true;
+    document.getElementById('reauth-form').style.display = 'none';
+    document.getElementById('dp-locked-msg').style.display = 'none';
+    showSensitiveFields();
+  } else {
+    document.getElementById('reauth-input').classList.add('error');
+    document.getElementById('reauth-err').textContent = 'Incorrect PIN.';
+    document.getElementById('reauth-input').value = '';
+  }
+}
+
+function showSensitiveFields(){
+  /* In production: fetch from Supabase API using currentRecord.id */
+  /* GET /api/supply-detail?id={id} — server-side auth, returns encrypted JSON */
+  /* For sandbox: show placeholder to confirm the flow works */
+  const s = document.getElementById('dp-sensitive');
+  s.style.display = 'block';
+  s.innerHTML = `
+    <div style="background:var(--s2);border-radius:4px;padding:1rem;margin-top:0.5rem">
+      <div class="dp-section-title" style="margin-bottom:0.5rem">Full record — Supabase API</div>
+      <p style="font-size:0.78rem;color:var(--tm);line-height:1.65">
+        In production, meter reference, MPAN/MPRN, EAC, uplift, contract dates, CED, duration, EPM value and commission details load here via a server-side Supabase query authenticated through Vercel middleware.
+        <br><br>
+        <strong style="color:var(--lime)">Ready to wire up.</strong> Connect your Supabase project and this panel will display the full protected record for supply ID <strong style="color:var(--text)">${currentRecord.id}</strong>.
+      </p>
+    </div>`;
+}
+
+function lockDetail(){
+  detailReauthed = false;
+  document.getElementById('dp-sensitive').style.display = 'none';
+  document.getElementById('dp-sensitive').innerHTML = '';
+  document.getElementById('dp-locked-msg').style.display = 'block';
+  document.getElementById('reauth-form').style.display = 'block';
+  document.getElementById('reauth-input').value = '';
+  document.getElementById('reauth-err').textContent = '';
+}
+
+/* ── INIT ── */
+function init(){
+  const people = [...new Set(DISPLAY_DATA.map(r=>r.person))].sort();
+  const sel = document.getElementById('filter-person');
+  people.forEach(p=>{const o=document.createElement('option');o.value=p;o.textContent=p;sel.appendChild(o);});
+  updateStats();
+  applyFilters();
+  document.getElementById('last-updated').textContent = 'Beta · ' + new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+}
+
+/* ── STATS ── */
+function updateStats(){
+  document.getElementById('stat-total').textContent = DISPLAY_DATA.length;
+  document.getElementById('stat-urgent').textContent = DISPLAY_DATA.filter(r=>r.days<90).length;
+  document.getElementById('stat-warn').textContent = DISPLAY_DATA.filter(r=>r.days>=90&&r.days<180).length;
+  document.getElementById('stat-ren').textContent = DISPLAY_DATA.filter(r=>r.sale==='REN').length;
+}
+
+/* ── FILTER & SORT ── */
+function applyFilters(){
+  const q = document.getElementById('search').value.toLowerCase();
+  const ft = document.getElementById('filter-type').value;
+  const fs = document.getElementById('filter-sale').value;
+  const fu = document.getElementById('filter-urgency').value;
+  const fp = document.getElementById('filter-person').value;
+  filtered = DISPLAY_DATA.filter(r=>{
+    if(q && !r.name.toLowerCase().includes(q)) return false;
+    if(ft && r.type !== ft) return false;
+    if(fs && r.sale !== fs) return false;
+    if(fp && r.person !== fp) return false;
+    if(fu==='urgent' && r.days>=90) return false;
+    if(fu==='warn' && (r.days<90||r.days>=180)) return false;
+    if(fu==='ok' && (r.days<180||r.days>=365)) return false;
+    if(fu==='far' && r.days<365) return false;
+    return true;
+  });
+  doSort(); page=0; renderTable();
+}
+
+function sortBy(col){
+  if(sortCol===col) sortDir*=-1; else {sortCol=col;sortDir=1;}
+  ['name','type','sale','person','days'].forEach(c=>{
+    const el=document.getElementById('s-'+c);
+    if(el) el.textContent = c===sortCol ? (sortDir===1?' ↑':' ↓') : '';
+    const th=document.getElementById('th-'+c);
+    if(th) th.classList.toggle('sorted', c===sortCol);
+  });
+  doSort(); page=0; renderTable();
+}
+
+function doSort(){
+  filtered.sort((a,b)=>{
+    const av=a[sortCol], bv=b[sortCol];
+    if(typeof av==='string') return av.localeCompare(bv)*sortDir;
+    return (av-bv)*sortDir;
+  });
+}
+
+/* ── RENDER ── */
+function renderTable(){
+  const tbody = document.getElementById('table-body');
+  const start = page * PER;
+  const slice = filtered.slice(start, start+PER);
+  if(!slice.length){
+    tbody.innerHTML='<tr><td colspan="5" class="no-results">No supplies match current filters</td></tr>';
+    document.getElementById('pagination').style.display='none';
+    return;
+  }
+  document.getElementById('pagination').style.display='flex';
+  tbody.innerHTML = slice.map(r=>{
+    const tt = r.type==='HH'?'<span class="tag tag-hh">HH</span>':r.type==='G'?'<span class="tag tag-g">Gas</span>':'<span class="tag tag-nhh">NHH</span>';
+    const st = r.sale==='ACQ'?'<span class="tag tag-acq">ACQ</span>':'<span class="tag tag-ren">REN</span>';
+    const dp = daysPill(r.days);
+    const ini = r.person==='Internal'?'<span style="font-size:0.72rem;color:var(--tl)">Internal</span>':`<span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--lime-dim);border:1px solid var(--lime-border);font-size:0.6rem;font-weight:700;color:var(--lime)">${r.person}</span>`;
+    return `<tr onclick="showDetail(${r.id})">
+      <td class="name-cell">${r.name}</td>
+      <td>${tt}</td>
+      <td>${st}</td>
+      <td>${ini}</td>
+      <td>${dp}</td>
+    </tr>`;
+  }).join('');
+  renderPagination();
+}
+
+function daysPill(d){
+  if(d<90) return `<span class="days-pill days-urgent">${d}d</span>`;
+  if(d<180) return `<span class="days-pill days-warn">${d}d</span>`;
+  if(d<365) return `<span class="days-pill days-ok">${d}d</span>`;
+  return `<span class="days-pill days-far">${d}d</span>`;
+}
+
+function renderPagination(){
+  const total=filtered.length, pages=Math.ceil(total/PER);
+  const start=page*PER+1, end=Math.min(start+PER-1,total);
+  document.getElementById('page-info').textContent=`${start}–${end} of ${total}`;
+  const btns=document.getElementById('page-btns');
+  btns.innerHTML=`<button class="page-btn" onclick="changePage(${page-1})" ${page===0?'disabled':''}>← Prev</button>${Array.from({length:pages},(_,i)=>`<button class="page-btn ${i===page?'active':''}" onclick="changePage(${i})">${i+1}</button>`).join('')}<button class="page-btn" onclick="changePage(${page+1})" ${page>=pages-1?'disabled':''}>Next →</button>`;
+}
+
+function changePage(p){page=p;renderTable();}
+
+/* ── DETAIL ── */
+function showDetail(id){
+  const r = DISPLAY_DATA.find(x=>x.id===id);
+  if(!r) return;
+  currentRecord = r;
+  if(!detailReauthed) lockDetail();
+  document.getElementById('dp-name').textContent = r.name;
+  document.getElementById('dp-sub').textContent = r.type + ' · ' + r.sale + ' · ' + daysPill(r.days) + ' to CSD';
+  const pub = document.getElementById('dp-public');
+  pub.innerHTML = `
+    <div class="dp-section-title">Summary</div>
+    <div class="dp-row"><span class="dp-label">Supply type</span><span class="dp-value">${r.type==='G'?'Gas':r.type}</span></div>
+    <div class="dp-row"><span class="dp-label">Sale type</span><span class="dp-value">${r.sale}</span></div>
+    <div class="dp-row"><span class="dp-label">Assigned to</span><span class="dp-value">${r.person}</span></div>
+    <div class="dp-row"><span class="dp-label">Days to CSD</span><span class="dp-value">${daysPill(r.days)}</span></div>
+  `;
+  document.getElementById('detail-overlay').classList.add('open');
+}
+
+function closeDetail(){document.getElementById('detail-overlay').classList.remove('open');}
+function closeDetailOut(e){if(e.target===document.getElementById('detail-overlay'))closeDetail();}
+
+/* ── TOAST ── */
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+</script>
+</body>
+</html>
