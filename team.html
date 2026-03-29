@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>BC Portal — Contract Entry</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0a0a0a;--surface:#111;--surface2:#161616;--surface3:#1a1a1a;
+  --lime:#c8f542;--lime-dim:rgba(200,245,66,0.1);--lime-border:rgba(200,245,66,0.25);
+  --text:#f0ede8;--text-mid:rgba(240,237,232,0.6);--text-low:rgba(240,237,232,0.3);
+  --border:rgba(255,255,255,0.07);--border-mid:rgba(255,255,255,0.13);
+  --red:#ff4444;--green:#4caf50;
+}
+html{-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;font-size:15px;min-height:100vh}
+
+/* ── HEADER ── */
+header{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;border-bottom:1px solid var(--border);background:rgba(10,10,10,0.97);position:sticky;top:0;z-index:100;backdrop-filter:blur(8px)}
+.h-left{display:flex;align-items:center;gap:0.75rem}
+.h-wordmark{font-size:0.9rem;font-weight:700;letter-spacing:-0.02em;color:var(--text)}
+.h-wordmark span{color:var(--lime)}
+.h-badge{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;background:var(--lime-dim);border:1px solid var(--lime-border);color:var(--lime);padding:0.25rem 0.6rem;border-radius:3px;font-weight:600}
+.h-right{font-size:0.72rem;color:var(--text-low);letter-spacing:0.06em;text-transform:uppercase}
+
+/* ── LAYOUT ── */
+.wrap{max-width:920px;margin:0 auto;padding:2rem 1.5rem 4rem}
+
+/* ── PAGE TITLE ── */
+.page-title{margin-bottom:2rem}
+.page-title h1{font-size:1.4rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:0.35rem}
+.page-title p{font-size:0.85rem;color:var(--text-mid)}
+
+/* ── SUPPLIER TABS ── */
+.supplier-tabs{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.s-tab{padding:0.45rem 1rem;border:1px solid var(--border-mid);border-radius:3px;font-size:0.78rem;cursor:pointer;background:var(--surface);color:var(--text-mid);transition:all 0.15s;font-weight:500}
+.s-tab:hover{border-color:rgba(200,245,66,0.4);color:var(--text)}
+.s-tab.active{background:var(--lime);color:#0a0a0a;border-color:var(--lime);font-weight:700}
+
+/* ── SUPPLY TYPE TOGGLE ── */
+.supply-toggle{display:flex;gap:0.5rem;margin-bottom:1.5rem}
+.st-btn{padding:0.4rem 1rem;border:1px solid var(--border-mid);border-radius:3px;font-size:0.78rem;cursor:pointer;background:var(--surface);color:var(--text-mid);transition:all 0.15s}
+.st-btn.active{background:var(--lime-dim);border-color:var(--lime-border);color:var(--lime);font-weight:600}
+
+/* ── FORM SECTIONS ── */
+.form-section{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.5rem;margin-bottom:1.25rem}
+.form-section.hidden{display:none}
+.section-header{display:flex;align-items:center;gap:0.65rem;margin-bottom:1.25rem;padding-bottom:0.85rem;border-bottom:1px solid var(--border)}
+.section-num{width:22px;height:22px;border-radius:50%;background:var(--lime-dim);border:1px solid var(--lime-border);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:var(--lime);flex-shrink:0}
+.section-title{font-size:0.82rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:var(--text-mid)}
+
+/* ── FORM GRID ── */
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+.fg.three{grid-template-columns:1fr 1fr 1fr}
+.fg.full{grid-template-columns:1fr}
+@media(max-width:600px){.fg,.fg.three{grid-template-columns:1fr}}
+
+/* ── FIELD ── */
+.field{display:flex;flex-direction:column;gap:0.3rem}
+.field.span2{grid-column:span 2}
+@media(max-width:600px){.field.span2{grid-column:span 1}}
+.field label{font-size:0.68rem;color:var(--text-low);letter-spacing:0.08em;text-transform:uppercase;font-weight:500}
+.field label .req{color:var(--lime);margin-left:2px}
+.field input,.field select,.field textarea{background:var(--surface2);border:1px solid var(--border-mid);border-radius:4px;padding:0.65rem 0.75rem;color:var(--text);font-size:0.88rem;font-family:inherit;outline:none;-webkit-appearance:none;transition:border-color 0.15s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--lime)}
+.field input::placeholder{color:var(--text-low)}
+.field textarea{resize:vertical;min-height:80px}
+.field select option{background:var(--surface)}
+.field .hint{font-size:0.65rem;color:var(--text-low);margin-top:0.2rem}
+
+/* ── RATE TABLE ── */
+.rate-table{width:100%;border-collapse:collapse;font-size:0.82rem;margin-top:0.5rem}
+.rate-table th{text-align:left;font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-low);padding:0 0.5rem 0.6rem;font-weight:500}
+.rate-table td{padding:0.3rem 0.5rem}
+.rate-table td input{background:var(--surface2);border:1px solid var(--border-mid);border-radius:3px;padding:0.45rem 0.6rem;color:var(--text);font-size:0.85rem;font-family:inherit;outline:none;width:100%;transition:border-color 0.15s}
+.rate-table td input:focus{border-color:var(--lime)}
+.rate-table tr.rate-row td:first-child{font-size:0.78rem;color:var(--text-mid);white-space:nowrap}
+.rate-table tr.separator td{padding-top:0.75rem;padding-bottom:0.25rem;font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(200,245,66,0.4);font-weight:600}
+
+/* ── COMMISSION SECTION ── */
+.commission-note{font-size:0.72rem;color:var(--text-low);padding:0.6rem 0.75rem;background:var(--surface3);border-radius:3px;margin-bottom:0.75rem;border-left:2px solid var(--lime-border)}
+
+/* ── COT FIELDS ── */
+.cot-fields{display:none}
+.cot-fields.show{display:block}
+
+/* ── SUBMIT ── */
+.submit-row{display:flex;gap:1rem;align-items:center;margin-top:1.5rem;flex-wrap:wrap}
+.btn-submit{padding:0.9rem 2.5rem;background:var(--lime);color:#0a0a0a;border:none;border-radius:4px;font-size:0.92rem;font-weight:700;cursor:pointer;letter-spacing:0.01em;transition:opacity 0.15s}
+.btn-submit:hover{opacity:0.88}
+.btn-submit:disabled{opacity:0.4;cursor:not-allowed}
+.btn-reset{padding:0.9rem 1.5rem;background:transparent;color:var(--text-low);border:1px solid var(--border-mid);border-radius:4px;font-size:0.88rem;cursor:pointer;transition:all 0.15s}
+.btn-reset:hover{color:var(--text);border-color:var(--border-mid)}
+.submit-note{font-size:0.75rem;color:var(--text-low)}
+
+/* ── STATUS ── */
+.status-bar{padding:1rem 1.25rem;border-radius:4px;font-size:0.85rem;margin-top:1rem;display:none;align-items:center;gap:0.75rem}
+.status-bar.show{display:flex}
+.status-bar.success{background:rgba(76,175,80,0.1);border:1px solid rgba(76,175,80,0.3);color:#81c784}
+.status-bar.error{background:rgba(255,68,68,0.1);border:1px solid rgba(255,68,68,0.3);color:#ff7070}
+.status-bar.loading{background:var(--lime-dim);border:1px solid var(--lime-border);color:var(--lime)}
+
+/* ── PROGRESS ── */
+.progress-dots{display:flex;gap:0.4rem;align-items:center}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--lime);animation:pulse 1.2s ease-in-out infinite}
+.dot:nth-child(2){animation-delay:0.2s}
+.dot:nth-child(3){animation-delay:0.4s}
+@keyframes pulse{0%,80%,100%{opacity:0.3;transform:scale(0.8)}40%{opacity:1;transform:scale(1)}}
+
+/* ── DIVIDER ── */
+.section-divider{height:1px;background:var(--border);margin:1.5rem 0}
+
+/* ── FOOTER ── */
+.portal-footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;gap:0.5rem}
+.portal-footer p{font-size:0.7rem;color:var(--text-low)}
+.portal-footer .version{font-size:0.65rem;color:rgba(200,245,66,0.3);letter-spacing:0.08em;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-left">
+    <div class="h-wordmark">Better<span>Connected</span></div>
+    <div class="h-badge">Team Portal</div>
+  </div>
+  <div class="h-right">Contract Entry v1.0</div>
+</header>
+
+<div class="wrap">
+
+  <div class="page-title">
+    <h1>New Contract Submission</h1>
+    <p>Complete all required fields. The form will generate and send a completed contract PDF to the client automatically.</p>
+  </div>
+
+  <!-- SUPPLIER SELECT -->
+  <div style="margin-bottom:1.5rem">
+    <div style="font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-low);margin-bottom:0.65rem;font-weight:500">Select supplier</div>
+    <div class="supplier-tabs">
+      <div class="s-tab active" onclick="setSupplier(this,'british-gas')">British Gas</div>
+      <div class="s-tab" onclick="setSupplier(this,'eon-next')">E.ON Next</div>
+      <div class="s-tab" onclick="setSupplier(this,'sse')">SSE</div>
+      <div class="s-tab" onclick="setSupplier(this,'ugp')">UGP</div>
+      <div class="s-tab" onclick="setSupplier(this,'valda')">Valda</div>
+      <div class="s-tab" onclick="setSupplier(this,'other')">Other</div>
+    </div>
+  </div>
+
+  <!-- SUPPLY TYPE -->
+  <div style="margin-bottom:1.75rem">
+    <div style="font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-low);margin-bottom:0.65rem;font-weight:500">Supply type</div>
+    <div class="supply-toggle">
+      <div class="st-btn active" onclick="setSupply(this,'electricity')">Electricity</div>
+      <div class="st-btn" onclick="setSupply(this,'gas')">Gas</div>
+      <div class="st-btn" onclick="setSupply(this,'both')">Both</div>
+    </div>
+  </div>
+
+  <form id="contract-form">
+    <input type="hidden" name="access_key" value="8a89758a-a5ad-48b1-92e8-9671723a5d84">
+    <input type="hidden" name="subject" id="form-subject" value="New Contract Submission — British Gas">
+    <input type="hidden" name="supplier" id="field-supplier" value="British Gas">
+    <input type="hidden" name="supply_type" id="field-supply-type" value="Electricity">
+    <input type="hidden" name="from_name" value="BC Team Portal">
+
+    <!-- ── SECTION 1: BROKER ── -->
+    <div class="form-section">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div class="section-title">Broker details</div>
+      </div>
+      <div class="fg">
+        <div class="field">
+          <label>Broker / agent name <span class="req">*</span></label>
+          <input type="text" name="broker_name" value="Better Connections Ltd" required>
+        </div>
+        <div class="field">
+          <label>Agent reference</label>
+          <input type="text" name="agent_ref" placeholder="Your internal ref">
+        </div>
+        <div class="field">
+          <label>Submitted by <span class="req">*</span></label>
+          <input type="text" name="submitted_by" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label>Submission date <span class="req">*</span></label>
+          <input type="date" name="submission_date" id="submission-date" required>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION 2: CLIENT ── -->
+    <div class="form-section">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div class="section-title">Customer / company details</div>
+      </div>
+      <div class="fg">
+        <div class="field span2">
+          <label>Registered company name <span class="req">*</span></label>
+          <input type="text" name="company_name" placeholder="Exactly as registered at Companies House" required>
+        </div>
+        <div class="field">
+          <label>Company registration number</label>
+          <input type="text" name="company_number" placeholder="e.g. 07294707">
+        </div>
+        <div class="field">
+          <label>VAT number</label>
+          <input type="text" name="vat_number" placeholder="e.g. 212 3657 36">
+        </div>
+        <div class="field">
+          <label>Director / authorised signatory <span class="req">*</span></label>
+          <input type="text" name="director_name" placeholder="Full name" required>
+        </div>
+        <div class="field">
+          <label>Director's date of birth</label>
+          <input type="date" name="director_dob">
+          <span class="hint">Required for credit check on some suppliers</span>
+        </div>
+        <div class="field span2">
+          <label>Registered address <span class="req">*</span></label>
+          <input type="text" name="registered_address" placeholder="Full registered address including postcode" required>
+        </div>
+        <div class="field">
+          <label>Contact email <span class="req">*</span></label>
+          <input type="email" name="client_email" placeholder="client@company.co.uk" required>
+          <span class="hint">Completed PDF will be sent here</span>
+        </div>
+        <div class="field">
+          <label>Contact phone</label>
+          <input type="tel" name="client_phone" placeholder="01234 567890">
+        </div>
+        <div class="field">
+          <label>Contact name</label>
+          <input type="text" name="contact_name" placeholder="If different from director">
+        </div>
+        <div class="field">
+          <label>SIC code</label>
+          <input type="text" name="sic_code" placeholder="e.g. 82990">
+        </div>
+      </div>
+
+      <!-- COT toggle -->
+      <div class="section-divider"></div>
+      <div class="field" style="flex-direction:row;align-items:center;gap:0.75rem;margin-bottom:0.75rem">
+        <input type="checkbox" id="cot-toggle" name="change_of_tenancy" value="yes" onchange="toggleCOT(this)" style="width:16px;height:16px;accent-color:var(--lime);cursor:pointer">
+        <label for="cot-toggle" style="text-transform:none;font-size:0.82rem;letter-spacing:0;color:var(--text-mid);cursor:pointer">Change of Tenancy (COT)</label>
+      </div>
+      <div class="cot-fields" id="cot-fields">
+        <div class="fg">
+          <div class="field">
+            <label>COT date</label>
+            <input type="date" name="cot_date">
+          </div>
+          <div class="field">
+            <label>Previous occupier / account holder</label>
+            <input type="text" name="previous_occupier" placeholder="Name of previous tenant">
+          </div>
+          <div class="field span2">
+            <label>Landlord / managing agent details</label>
+            <input type="text" name="landlord_details" placeholder="Name, address and contact if applicable">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION 3: SUPPLY SITE ── -->
+    <div class="form-section">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div class="section-title">Supply site details</div>
+      </div>
+      <div class="fg">
+        <div class="field span2">
+          <label>Site / supply address <span class="req">*</span></label>
+          <input type="text" name="site_address" placeholder="Full site address including postcode" required>
+          <span class="hint">Leave blank if same as registered address</span>
+        </div>
+
+        <!-- ELECTRICITY FIELDS -->
+        <div class="field supply-elec" id="mpan-field">
+          <label>MPAN (top line)</label>
+          <input type="text" name="mpan_top" placeholder="S 00 000 000 000">
+        </div>
+        <div class="field supply-elec">
+          <label>MPAN (bottom line) <span class="req">*</span></label>
+          <input type="text" name="mpan_bottom" placeholder="00 0000 0000 000">
+        </div>
+        <div class="field supply-elec">
+          <label>Meter serial number</label>
+          <input type="text" name="elec_meter_serial" placeholder="As shown on meter">
+        </div>
+        <div class="field supply-elec">
+          <label>Profile class</label>
+          <select name="profile_class">
+            <option value="">Select</option>
+            <option>01 — Domestic unrestricted</option>
+            <option>02 — Domestic Economy 7</option>
+            <option>03 — Non-domestic unrestricted</option>
+            <option>04 — Non-domestic Economy 7</option>
+            <option>05 — Non-domestic max demand (≤100kW)</option>
+            <option>06 — Non-domestic max demand (100kW–1MW)</option>
+            <option>07 — Non-domestic max demand (&gt;1MW)</option>
+            <option>00 — Half Hourly</option>
+          </select>
+        </div>
+        <div class="field supply-elec">
+          <label>Meter type</label>
+          <select name="meter_type">
+            <option value="">Select</option>
+            <option>Single rate</option>
+            <option>Two rate (Economy 7)</option>
+            <option>Multi-rate (Economy 10)</option>
+            <option>Half Hourly (HH)</option>
+            <option>Advanced / Smart</option>
+          </select>
+        </div>
+        <div class="field supply-elec">
+          <label>Annual consumption (kWh)</label>
+          <input type="text" name="elec_consumption" placeholder="Estimated annual kWh">
+        </div>
+
+        <!-- GAS FIELDS -->
+        <div class="field supply-gas hidden" id="mprn-field">
+          <label>MPRN <span class="req">*</span></label>
+          <input type="text" name="mprn" placeholder="Gas meter point reference">
+        </div>
+        <div class="field supply-gas hidden">
+          <label>Gas meter serial number</label>
+          <input type="text" name="gas_meter_serial" placeholder="As shown on meter">
+        </div>
+        <div class="field supply-gas hidden">
+          <label>Annual consumption (kWh)</label>
+          <input type="text" name="gas_consumption" placeholder="Estimated annual kWh">
+        </div>
+        <div class="field supply-gas hidden">
+          <label>Gas meter type</label>
+          <select name="gas_meter_type">
+            <option value="">Select</option>
+            <option>Standard credit</option>
+            <option>Smart / AMR</option>
+            <option>Prepayment</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Current supplier</label>
+          <input type="text" name="current_supplier" placeholder="Who supplies this site now">
+        </div>
+        <div class="field">
+          <label>Current contract end date</label>
+          <input type="date" name="current_contract_end">
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION 4: CONTRACT TERMS ── -->
+    <div class="form-section">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <div class="section-title">Contract terms</div>
+      </div>
+      <div class="fg three">
+        <div class="field">
+          <label>Contract start date <span class="req">*</span></label>
+          <input type="date" name="contract_start" required>
+        </div>
+        <div class="field">
+          <label>Contract end date <span class="req">*</span></label>
+          <input type="date" name="contract_end" required>
+        </div>
+        <div class="field">
+          <label>Contract length</label>
+          <select name="contract_length">
+            <option value="">Select</option>
+            <option>12 months</option>
+            <option>18 months</option>
+            <option>24 months</option>
+            <option>36 months</option>
+            <option>48 months</option>
+            <option>60 months</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Contract type</label>
+          <select name="contract_type">
+            <option value="">Select</option>
+            <option>Fixed</option>
+            <option>Flexible / pass-through</option>
+            <option>Deemed</option>
+            <option>Out of contract</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Payment method</label>
+          <select name="payment_method">
+            <option value="">Select</option>
+            <option>Direct Debit (monthly)</option>
+            <option>Direct Debit (quarterly)</option>
+            <option>BACS / bank transfer</option>
+            <option>Cheque</option>
+            <option>Prepayment</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Estimated annual value (£)</label>
+          <input type="text" name="annual_value" placeholder="Approx. £">
+        </div>
+      </div>
+      <div class="fg full" style="margin-top:0.75rem">
+        <div class="field">
+          <label>Auto-renewal terms / notice period</label>
+          <input type="text" name="auto_renewal" placeholder="e.g. 90 days notice required before end date">
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION 5: RATES — ELECTRICITY ── -->
+    <div class="form-section supply-elec" id="elec-rates-section">
+      <div class="section-header">
+        <div class="section-num">5a</div>
+        <div class="section-title">Electricity rates</div>
+      </div>
+
+      <table class="rate-table">
+        <thead>
+          <tr>
+            <th style="width:180px">Rate component</th>
+            <th>Unit rate (p/kWh)</th>
+            <th>Uplift / commission (p/kWh)</th>
+            <th>Total rate (p/kWh)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="separator"><td colspan="4">Standard / day rates</td></tr>
+          <tr class="rate-row">
+            <td>Day rate</td>
+            <td><input type="text" name="elec_day_unit" placeholder="0.0000"></td>
+            <td><input type="text" name="elec_day_uplift" placeholder="0.0000"></td>
+            <td><input type="text" name="elec_day_total" placeholder="0.0000"></td>
+          </tr>
+          <tr class="rate-row">
+            <td>Night rate</td>
+            <td><input type="text" name="elec_night_unit" placeholder="0.0000"></td>
+            <td><input type="text" name="elec_night_uplift" placeholder="0.0000"></td>
+            <td><input type="text" name="elec_night_total" placeholder="0.0000"></td>
+          </tr>
+          <tr class="rate-row">
+            <td>Evening / weekend rate</td>
+            <td><input type="text" name="elec_ew_unit" placeholder="0.0000"></td>
+            <td><input type="text" name="elec_ew_uplift" placeholder="0.0000"></td>
+            <td><input type="text" name="elec_ew_total" placeholder="0.0000"></td>
+          </tr>
+          <tr class="rate-row">
+            <td>RHT / restricted hours</td>
+            <td><input type="text" name="elec_rht_unit" placeholder="0.0000"></td>
+            <td><input type="text" name="elec_rht_uplift" placeholder="0.0000"></td>
+            <td><input type="text" name="elec_rht_total" placeholder="0.0000"></td>
+          </tr>
+          <tr class="separator"><td colspan="4">Capacity charges</td></tr>
+          <tr class="rate-row">
+            <td>Capacity charge (p/kVA/day)</td>
+            <td><input type="text" name="elec_capacity" placeholder="0.0000"></td>
+            <td><input type="text" name="elec_capacity_uplift" placeholder="—"></td>
+            <td><input type="text" name="elec_capacity_total" placeholder="0.0000"></td>
+          </tr>
+          <tr class="rate-row">
+            <td>Excess capacity (p/kVA/day)</td>
+            <td><input type="text" name="elec_excess_capacity" placeholder="0.0000"></td>
+            <td><input type="text" name="elec_excess_uplift" placeholder="—"></td>
+            <td><input type="text" name="elec_excess_total" placeholder="0.0000"></td>
+          </tr>
+          <tr class="separator"><td colspan="4">Fixed charges</td></tr>
+          <tr class="rate-row">
+            <td>Standing charge (p/day)</td>
+            <td><input type="text" name="elec_standing" placeholder="0.00"></td>
+            <td><input type="text" name="elec_standing_uplift" placeholder="—"></td>
+            <td><input type="text" name="elec_standing_total" placeholder="0.00"></td>
+          </tr>
+          <tr class="rate-row">
+            <td>Meter operator charge (p/day)</td>
+            <td><input type="text" name="elec_meter_op" placeholder="0.00"></td>
+            <td colspan="2"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── SECTION 5b: RATES — GAS ── -->
+    <div class="form-section supply-gas hidden" id="gas-rates-section">
+      <div class="section-header">
+        <div class="section-num">5b</div>
+        <div class="section-title">Gas rates</div>
+      </div>
+      <table class="rate-table">
+        <thead>
+          <tr>
+            <th style="width:180px">Rate component</th>
+            <th>Unit rate (p/kWh)</th>
+            <th>Uplift / commission (p/kWh)</th>
+            <th>Total rate (p/kWh)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="rate-row">
+            <td>Gas unit rate</td>
+            <td><input type="text" name="gas_unit" placeholder="0.0000"></td>
+            <td><input type="text" name="gas_uplift" placeholder="0.0000"></td>
+            <td><input type="text" name="gas_total" placeholder="0.0000"></td>
+          </tr>
+          <tr class="rate-row">
+            <td>Standing charge (p/day)</td>
+            <td><input type="text" name="gas_standing" placeholder="0.00"></td>
+            <td><input type="text" name="gas_standing_uplift" placeholder="—"></td>
+            <td><input type="text" name="gas_standing_total" placeholder="0.00"></td>
+          </tr>
+          <tr class="rate-row">
+            <td>Transportation (p/kWh)</td>
+            <td><input type="text" name="gas_transport" placeholder="0.0000"></td>
+            <td colspan="2"></td>
+          </tr>
+          <tr class="rate-row">
+            <td>Meter operator charge (p/day)</td>
+            <td><input type="text" name="gas_meter_op" placeholder="0.00"></td>
+            <td colspan="2"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── SECTION 6: COMMISSION ── -->
+    <div class="form-section">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <div class="section-title">Commission &amp; broker uplift summary</div>
+      </div>
+      <div class="commission-note">
+        Per Better Connected transparency policy — commission values must be completed before submission. These are included in the client-facing disclosure document.
+      </div>
+      <div class="fg">
+        <div class="field">
+          <label>Total estimated broker commission (£)</label>
+          <input type="text" name="total_commission" placeholder="Estimated over contract term">
+        </div>
+        <div class="field">
+          <label>Commission type</label>
+          <select name="commission_type">
+            <option value="">Select</option>
+            <option>Embedded uplift (unit rate)</option>
+            <option>Fixed fee</option>
+            <option>Hybrid (uplift + fee)</option>
+            <option>Success fee on savings</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Commission paid by</label>
+          <select name="commission_paid_by">
+            <option value="">Select</option>
+            <option>Supplier</option>
+            <option>Client (direct)</option>
+            <option>Both</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Commission disclosed to client?</label>
+          <select name="commission_disclosed">
+            <option value="">Select</option>
+            <option>Yes — verbally</option>
+            <option>Yes — in writing</option>
+            <option>Yes — in contract documentation</option>
+            <option>Pending disclosure</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION 7: NOTES ── -->
+    <div class="form-section">
+      <div class="section-header">
+        <div class="section-num">7</div>
+        <div class="section-title">Special conditions &amp; notes</div>
+      </div>
+      <div class="fg full">
+        <div class="field">
+          <label>Special conditions</label>
+          <textarea name="special_conditions" placeholder="Any non-standard terms, pricing conditions, or supplier-specific requirements..."></textarea>
+        </div>
+        <div class="field">
+          <label>Internal notes (not sent to client)</label>
+          <textarea name="internal_notes" placeholder="Notes for BC team only — not included in client PDF..."></textarea>
+        </div>
+      </div>
+      <div class="fg" style="margin-top:0.75rem">
+        <div class="field">
+          <label>Deal status</label>
+          <select name="deal_status">
+            <option value="">Select</option>
+            <option>Verbal agreement — awaiting signature</option>
+            <option>Contract sent — awaiting return</option>
+            <option>Signed — processing with supplier</option>
+            <option>Live — confirmed by supplier</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Follow-up date</label>
+          <input type="date" name="followup_date">
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SUBMIT ── -->
+    <div class="submit-row">
+      <button type="submit" class="btn-submit" id="submit-btn">Submit contract →</button>
+      <button type="button" class="btn-reset" onclick="resetForm()">Clear form</button>
+      <span class="submit-note">Submits to Web3Forms — client PDF generated and emailed automatically</span>
+    </div>
+
+    <div class="status-bar" id="status-bar">
+      <div class="progress-dots" id="status-dots" style="display:none"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <span id="status-text"></span>
+    </div>
+
+  </form>
+
+  <div class="portal-footer">
+    <p>Better Connections Limited · Reg. 07294707 · VAT 212 3657 36 · Internal use only</p>
+    <div class="version">Portal v1.0 · Sandbox</div>
+  </div>
+
+</div>
+
+<script>
+/* ── SET TODAY'S DATE ── */
+document.getElementById('submission-date').value = new Date().toISOString().split('T')[0];
+
+/* ── SUPPLIER ── */
+function setSupplier(el, val){
+  document.querySelectorAll('.s-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  const label = el.textContent;
+  document.getElementById('field-supplier').value = label;
+  document.getElementById('form-subject').value = 'New Contract Submission — ' + label;
+}
+
+/* ── SUPPLY TYPE ── */
+let currentSupply = 'electricity';
+function setSupply(el, val){
+  document.querySelectorAll('.st-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  currentSupply = val;
+  document.getElementById('field-supply-type').value = val;
+  updateSupplyFields(val);
+}
+
+function updateSupplyFields(val){
+  const elecEls = document.querySelectorAll('.supply-elec');
+  const gasEls = document.querySelectorAll('.supply-gas');
+  if(val === 'electricity'){
+    elecEls.forEach(e=>e.classList.remove('hidden'));
+    gasEls.forEach(e=>e.classList.add('hidden'));
+  } else if(val === 'gas'){
+    elecEls.forEach(e=>e.classList.add('hidden'));
+    gasEls.forEach(e=>e.classList.remove('hidden'));
+  } else {
+    elecEls.forEach(e=>e.classList.remove('hidden'));
+    gasEls.forEach(e=>e.classList.remove('hidden'));
+  }
+}
+
+/* ── COT ── */
+function toggleCOT(cb){
+  document.getElementById('cot-fields').classList.toggle('show', cb.checked);
+}
+
+/* ── FORM SUBMIT ── */
+const form = document.getElementById('contract-form');
+const statusBar = document.getElementById('status-bar');
+const statusText = document.getElementById('status-text');
+const statusDots = document.getElementById('status-dots');
+const submitBtn = document.getElementById('submit-btn');
+
+form.addEventListener('submit', async function(e){
+  e.preventDefault();
+  submitBtn.disabled = true;
+  statusBar.className = 'status-bar loading show';
+  statusDots.style.display = 'flex';
+  statusText.textContent = 'Submitting contract...';
+
+  const data = new FormData(form);
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: data
+    });
+    const json = await res.json();
+    statusDots.style.display = 'none';
+    if(json.success){
+      statusBar.className = 'status-bar success show';
+      statusText.textContent = '✓ Contract submitted successfully. Client PDF will be generated and emailed shortly.';
+      submitBtn.disabled = false;
+    } else {
+      throw new Error(json.message || 'Submission failed');
+    }
+  } catch(err){
+    statusDots.style.display = 'none';
+    statusBar.className = 'status-bar error show';
+    statusText.textContent = '✗ Error: ' + err.message + '. Please check your Web3Forms key and try again.';
+    submitBtn.disabled = false;
+  }
+});
+
+/* ── RESET ── */
+function resetForm(){
+  if(!confirm('Clear all form fields?')) return;
+  form.reset();
+  document.getElementById('submission-date').value = new Date().toISOString().split('T')[0];
+  statusBar.className = 'status-bar';
+  document.getElementById('cot-fields').classList.remove('show');
+  updateSupplyFields('electricity');
+  document.querySelectorAll('.st-btn').forEach((b,i)=>b.classList.toggle('active',i===0));
+  document.querySelectorAll('.s-tab').forEach((t,i)=>t.classList.toggle('active',i===0));
+}
+</script>
+</body>
+</html>
