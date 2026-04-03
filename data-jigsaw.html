@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="index,follow">
+<title>Data Jigsaw — The Company Energy Picture | Better Connected</title>
+<meta name="description" content="Data Jigsaw provides independent Half Hourly metering, MOP and data collection services for over 250,000 metering points across GB. Part of the Better Connected group.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0a0a0a;--surface:#111;--s2:#161616;--s3:#1c1c1c;
+  --lime:#c8f542;--lime-dim:rgba(200,245,66,0.09);--lime-border:rgba(200,245,66,0.25);
+  --text:#f0ede8;--tm:rgba(240,237,232,0.58);--tl:rgba(240,237,232,0.32);
+  --border:rgba(255,255,255,0.07);--bm:rgba(255,255,255,0.13);
+  --nav-bg:rgba(10,10,10,0.97);
+}
+html.light{
+  --bg:#dddbd4;--surface:#e8e6df;--s2:#d4d2cb;--s3:#ccc9c1;
+  --lime:#6b8c00;--lime-dim:rgba(107,140,0,0.1);--lime-border:rgba(107,140,0,0.3);
+  --text:#0a0a0a;--tm:rgba(10,10,10,0.7);--tl:rgba(10,10,10,0.45);
+  --border:rgba(0,0,0,0.11);--bm:rgba(0,0,0,0.2);
+  --nav-bg:rgba(221,219,212,0.97);
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;transition:background 0.35s,color 0.35s;overflow-x:hidden}
+
+/* NAV */
+nav{display:flex;justify-content:space-between;align-items:center;padding:0.85rem 1.5rem;border-bottom:1px solid var(--border);background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);position:sticky;top:0;z-index:100;transition:background 0.35s,border-color 0.35s;gap:1rem;flex-wrap:wrap}
+.logo{font-size:0.95rem;font-weight:700;letter-spacing:-0.02em;color:var(--text);text-decoration:none;transition:color 0.35s}
+.logo span{color:var(--lime)}
+.nav-links{display:none;gap:1.5rem;list-style:none}
+@media(min-width:800px){.nav-links{display:flex}}
+.nav-links a{font-size:0.78rem;color:var(--tl);text-decoration:none;cursor:pointer;transition:color 0.15s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:0.75rem}
+.nav-cta{font-size:0.78rem;padding:0.45rem 1rem;background:var(--lime);color:#0a0a0a;border:none;border-radius:3px;cursor:pointer;font-weight:700;white-space:nowrap}
+.tog{display:flex;align-items:center;gap:0.4rem;cursor:pointer;user-select:none}
+.tog-ic{font-size:11px;color:var(--tl)}
+.trk{width:36px;height:20px;border-radius:10px;background:rgba(255,255,255,0.08);border:1px solid var(--border);position:relative;flex-shrink:0;transition:background 0.25s}
+html.light .trk{background:rgba(0,0,0,0.1)}
+.thb{position:absolute;top:3px;left:3px;width:12px;height:12px;border-radius:50%;background:var(--lime);transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1)}
+html.light .thb{transform:translateX(16px)}
+
+/* HERO */
+.hero{padding:4rem 1.5rem 3rem;max-width:880px}
+@media(min-width:700px){.hero{padding:6rem 3rem 4.5rem}}
+.eyebrow-row{display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;margin-bottom:1.75rem}
+.badge{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;background:var(--lime-dim);border:1px solid var(--lime-border);color:var(--lime);padding:0.22rem 0.65rem;border-radius:3px;font-weight:600}
+.reg-note{font-size:0.72rem;color:var(--tl);letter-spacing:0.03em}
+h1{font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;line-height:1.06;letter-spacing:-0.035em;margin-bottom:1.5rem;color:var(--text);transition:color 0.35s}
+h1 .lime{color:var(--lime)}
+.hero-strap{font-size:1rem;color:var(--lime);font-style:italic;margin-bottom:1rem;font-weight:500;letter-spacing:0.02em}
+.hero-sub{font-size:1rem;color:var(--tm);line-height:1.8;max-width:600px;margin-bottom:2.5rem}
+.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap}
+.btn-p{padding:0.85rem 1.85rem;background:var(--lime);color:#0a0a0a;border:none;border-radius:4px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:opacity 0.15s}
+.btn-p:hover{opacity:0.88}
+.btn-g{padding:0.85rem 1.85rem;background:transparent;color:var(--tm);border:1px solid var(--bm);border-radius:4px;font-size:0.9rem;cursor:pointer;transition:color 0.15s,border-color 0.15s}
+.btn-g:hover{color:var(--text)}
+
+/* STAT BAR */
+.stat-bar{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+@media(min-width:600px){.stat-bar{flex-direction:row}}
+.stat{background:var(--bg);padding:1.75rem 1.25rem;transition:background 0.35s}
+@media(min-width:600px){.stat{padding:2.25rem 2.5rem}}
+.stat-n{font-size:2.2rem;font-weight:800;color:var(--lime);letter-spacing:-0.04em;line-height:1}
+.stat-l{font-size:0.68rem;color:var(--tl);margin-top:0.4rem;text-transform:uppercase;letter-spacing:0.1em}
+.stat-d{font-size:0.85rem;color:var(--tm);margin-top:0.65rem;line-height:1.6}
+
+/* PULL */
+.pull{padding:3rem 1.5rem;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);transition:background 0.35s,border-color 0.35s}
+@media(min-width:600px){.pull{padding:4rem 3rem}}
+.pull-q{font-size:clamp(1.05rem,3vw,1.65rem);font-weight:500;line-height:1.45;letter-spacing:-0.02em;font-style:italic;max-width:720px}
+.pull-q .lime{color:var(--lime);font-style:normal}
+.pull-attr{font-size:0.72rem;color:var(--tl);letter-spacing:0.1em;text-transform:uppercase;margin-top:1.25rem}
+
+/* SECTIONS */
+.section{padding:3rem 1.5rem;transition:background 0.35s}
+@media(min-width:600px){.section{padding:5rem 3rem}}
+.s-label{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--tl);margin-bottom:1rem}
+h2{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:700;letter-spacing:-0.025em;line-height:1.15;margin-bottom:1rem;color:var(--text);transition:color 0.35s}
+.s-body{font-size:0.95rem;color:var(--tm);line-height:1.8;max-width:640px;margin-bottom:0}
+
+/* WHAT'S INCLUDED GRID */
+.included-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);margin-top:2.5rem}
+@media(min-width:600px){.included-grid{grid-template-columns:1fr 1fr 1fr}}
+.inc-item{background:var(--bg);padding:1.5rem;transition:background 0.35s}
+@media(min-width:600px){.inc-item{padding:1.75rem 2rem}}
+.inc-tick{font-size:0.75rem;color:var(--lime);font-weight:700;margin-bottom:0.4rem;letter-spacing:0.04em}
+.inc-title{font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:0.3rem;transition:color 0.35s}
+.inc-body{font-size:0.82rem;color:var(--tm);line-height:1.6}
+
+/* CHAIN */
+.chain{display:flex;flex-direction:column;gap:0;margin-top:2.5rem;max-width:900px}
+@media(min-width:700px){.chain{flex-direction:row}}
+.chain-step{flex:1;background:var(--surface);border:1px solid var(--border);padding:1.5rem;position:relative;transition:background 0.35s,border-color 0.35s}
+.chain-step:not(:last-child){border-bottom:none}
+@media(min-width:700px){
+  .chain-step:not(:last-child){border-bottom:1px solid var(--border);border-right:none}
+}
+.chain-num{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--lime);margin-bottom:0.5rem;font-weight:600}
+.chain-title{font-size:0.88rem;font-weight:600;color:var(--text);margin-bottom:0.35rem;transition:color 0.35s}
+.chain-body{font-size:0.8rem;color:var(--tm);line-height:1.6}
+.chain-arr{display:none;position:absolute;right:-13px;top:50%;transform:translateY(-50%);width:26px;height:26px;background:var(--bg);border:1px solid var(--border);border-radius:50%;align-items:center;justify-content:center;font-size:0.75rem;color:var(--lime);z-index:2;transition:background 0.35s,border-color 0.35s}
+@media(min-width:700px){.chain-arr{display:flex}}
+
+/* DEEP DIVE CARDS */
+.deep-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);margin-top:2.5rem}
+@media(min-width:600px){.deep-grid{grid-template-columns:1fr 1fr}}
+.deep-card{background:var(--bg);transition:background 0.15s}
+.deep-card:hover .deep-header{background:var(--surface)}
+.deep-header{padding:1.75rem 1.5rem;cursor:pointer;transition:background 0.15s}
+@media(min-width:600px){.deep-header{padding:2rem}}
+.deep-tag{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--lime);margin-bottom:0.6rem;font-weight:600}
+.deep-header h3{font-size:0.95rem;font-weight:600;color:var(--text);margin-bottom:0.5rem;line-height:1.3;transition:color 0.35s}
+.deep-header p{font-size:0.82rem;color:var(--tm);line-height:1.65}
+.deep-more{font-size:0.78rem;color:var(--lime);margin-top:0.85rem;display:inline-block;transition:opacity 0.15s}
+.deep-panel{display:none;padding:0 1.5rem 1.75rem;background:var(--bg);transition:background 0.35s}
+@media(min-width:600px){.deep-panel{padding:0 2rem 2rem}}
+.deep-panel.open{display:block}
+.deep-panel p{font-size:0.88rem;color:var(--tm);line-height:1.8;margin-bottom:0.85rem}
+.deep-panel p:last-child{margin-bottom:0}
+.deep-panel h4{font-size:0.85rem;font-weight:600;color:var(--text);margin:1.25rem 0 0.45rem;transition:color 0.35s}
+
+/* COMPARISON */
+.comp-row{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:2.5rem;max-width:680px}
+.comp-col{background:var(--surface);padding:1.5rem;transition:background 0.35s}
+.comp-label{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--tl);margin-bottom:0.85rem;font-weight:500}
+.comp-col ul{list-style:none;padding:0}
+.comp-col li{font-size:0.85rem;color:var(--tm);padding:0.4rem 0;border-bottom:1px solid var(--border);line-height:1.5;display:flex;gap:0.5rem}
+.comp-col li:last-child{border-bottom:none}
+.comp-col li .ic{flex-shrink:0;font-size:0.78rem;font-weight:700}
+.ic-bad{color:#e05252}
+.ic-good{color:var(--lime)}
+
+/* CALLOUT */
+.callout{background:var(--surface);border:1px solid var(--lime-border);border-radius:4px;padding:1.25rem 1.5rem;margin-top:2rem;transition:background 0.35s,border-color 0.35s;max-width:680px}
+.callout p{font-size:0.88rem;color:var(--tm);line-height:1.75;margin:0}
+.callout strong{color:var(--lime)}
+
+/* PARTNER BLOCK */
+.partner{background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:2rem;margin-top:2.5rem;max-width:680px;transition:background 0.35s,border-color 0.35s}
+.partner-lbl{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--tl);margin-bottom:0.6rem;font-weight:500}
+.partner-name{font-size:1rem;font-weight:600;color:var(--text);margin-bottom:0.75rem;transition:color 0.35s}
+.partner-body{font-size:0.88rem;color:var(--tm);line-height:1.75}
+
+/* HR */
+hr{border:none;border-top:1px solid var(--border);transition:border-color 0.35s}
+
+/* EDV2 BADGE */
+.edv2-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--lime-dim);border:1px solid var(--lime-border);border-radius:4px;padding:0.4rem 0.85rem;font-size:0.78rem;color:var(--lime);font-weight:600;letter-spacing:0.04em;margin-top:1rem}
+
+/* FOOTER */
+footer{padding:3rem 1.5rem 2rem;border-top:1px solid var(--border);transition:border-color 0.35s}
+@media(min-width:700px){footer{padding:3.5rem 3rem 2.5rem}}
+.footer-top{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2.5rem}
+@media(min-width:700px){.footer-top{grid-template-columns:2fr 1fr 1fr}}
+.footer-brand{grid-column:1/-1}
+@media(min-width:700px){.footer-brand{grid-column:auto}}
+.footer-brand .tagline{font-size:0.8rem;color:var(--tl);margin-top:0.6rem;line-height:1.6;max-width:200px}
+.f-col h5{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--tl);margin-bottom:0.85rem}
+.f-col ul{list-style:none}
+.f-col li,.f-col a{font-size:0.82rem;color:var(--tl);margin-bottom:0.5rem;cursor:pointer;transition:color 0.15s;text-decoration:none;display:block}
+.f-col li:hover,.f-col a:hover{color:var(--lime)}
+.footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:0.5rem;transition:border-color 0.35s}
+@media(min-width:600px){.footer-bottom{flex-direction:row;justify-content:space-between;align-items:center}}
+.footer-bottom p{font-size:0.72rem;color:var(--tl)}
+.strap{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,245,66,0.35)}
+html.light .strap{color:rgba(107,140,0,0.45)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">Better<span>Connected</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/#what-we-do">What we do</a></li>
+    <li><a href="/#honest">The honest bit</a></li>
+    <li><a href="/#knowledge">Energy explained</a></li>
+    <li><a href="/data-jigsaw.html" class="active">Data Jigsaw</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="tog" onclick="document.documentElement.classList.toggle('light')">
+      <span class="tog-ic">🌙</span>
+      <div class="trk"><div class="thb"></div></div>
+      <span class="tog-ic">☀</span>
+    </div>
+    <button class="nav-cta" onclick="window.location='/#contact'">Talk to us</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="eyebrow-row">
+    <span class="badge">Part of Better Connected</span>
+    <span class="reg-note">Company reg: 09655831</span>
+  </div>
+  <h1>Half Hourly metering.<br><span class="lime">Independent. Inclusive.<br>33% less than your supplier.</span></h1>
+  <p class="hero-strap">"The Company Energy Picture"</p>
+  <p class="hero-sub">Data Jigsaw is an independent Meter Operator and Data Collector covering over 250,000 metering points — more than 5% of the entire UK's business electricity consumption. We manage the meter. We collect the data. We provision it to your supplier. One fixed monthly cost. No surprises.</p>
+  <div class="btn-row">
+    <button class="btn-p" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">How it works →</button>
+    <button class="btn-g" onclick="document.getElementById('deep').scrollIntoView({behavior:'smooth'})">Dig deeper</button>
+  </div>
+</section>
+
+<hr>
+
+<!-- STATS -->
+<div class="stat-bar">
+  <div class="stat">
+    <div class="stat-n">250k+</div>
+    <div class="stat-l">Metering points managed</div>
+    <div class="stat-d">Over 250,000 metering points across the UK. More than 5% of the entire national business electricity consumption.</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">33%</div>
+    <div class="stat-l">Less than supplier agreements</div>
+    <div class="stat-d">Independent MOP and DC agreements with Data Jigsaw consistently come in at around a third less than the equivalent cost through your energy supplier.</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">1</div>
+    <div class="stat-l">Fixed monthly cost — everything included</div>
+    <div class="stat-d">Meter replacement, modem, maintenance, GSM and fixed line communication, and data collection. All in. No separate annual charges.</div>
+  </div>
+</div>
+
+<hr>
+
+<!-- PULL -->
+<div class="pull">
+  <p class="pull-q">"Your energy supplier almost certainly appointed themselves as your Meter Operator and Data Collector. <span class="lime">That means you have no control over what those costs are</span> — and you're almost certainly paying more than you need to."</p>
+  <div class="pull-attr">— Why Data Jigsaw exists</div>
+</div>
+
+<!-- WHAT'S INCLUDED -->
+<section class="section">
+  <div class="s-label">One monthly cost covers all of this</div>
+  <h2>Everything included.<br>Nothing billed separately.</h2>
+  <p class="s-body">Most energy suppliers charge separately for meter operation and data collection — or bundle opaque charges into your bill with no breakdown. Data Jigsaw charges one fixed monthly direct debit that covers everything required for full MOP and DC compliance.</p>
+  <div class="included-grid">
+    <div class="inc-item"><div class="inc-tick">Included</div><div class="inc-title">Meter replacement</div><div class="inc-body">Any meter replacement required during the term is covered. No surprise capital charges.</div></div>
+    <div class="inc-item"><div class="inc-tick">Included</div><div class="inc-title">Modem and communications</div><div class="inc-body">GSM mobile network and fixed line communication for data transmission. Line rental included.</div></div>
+    <div class="inc-item"><div class="inc-tick">Included</div><div class="inc-title">Maintenance and servicing</div><div class="inc-body">Ongoing meter maintenance by IMSERV-qualified engineers to keep your meter in full operational compliance.</div></div>
+    <div class="inc-item"><div class="inc-tick">Included</div><div class="inc-title">Data collection</div><div class="inc-body">Half Hourly consumption data collected every 30 minutes and provisioned accurately to your supplier for settlement.</div></div>
+    <div class="inc-item"><div class="inc-tick">Included</div><div class="inc-title">Compliance management</div><div class="inc-body">Full compliance with Elexon's metering regulations and industry data flow standards. We manage this — you don't have to.</div></div>
+    <div class="inc-item"><div class="inc-tick">Included</div><div class="inc-title">Supplier liaison</div><div class="inc-body">We contact your current supplier, handle the industry data flow appointment, and maintain the connection throughout the term.</div></div>
+  </div>
+</section>
+
+<hr>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how" style="background:var(--surface)">
+  <div class="s-label">How it works</div>
+  <h2>From meter to supplier.<br>Every 30 minutes. Every day.</h2>
+  <p class="s-body">Half Hourly metering is a chain of distinct licensed activities. Data Jigsaw occupies three of the four positions in that chain — owning the meter, contracting its maintenance, and managing data collection and provisioning — all under one agreement.</p>
+
+  <div class="chain">
+    <div class="chain-step">
+      <div class="chain-num">01 — Ownership</div>
+      <div class="chain-title">Data Jigsaw owns the meter</div>
+      <div class="chain-body">The HH meter at your site is a licensed asset. Data Jigsaw holds the ownership position, taking full responsibility for it throughout its operational life.</div>
+      <div class="chain-arr">→</div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-num">02 — Operation</div>
+      <div class="chain-title">IMSERV operates and maintains it</div>
+      <div class="chain-body">Data Jigsaw contracts IMSERV — the largest MOP/DC compliant centre in the UK — for physical maintenance, servicing, and meter operation. Engineers attend site when required.</div>
+      <div class="chain-arr">→</div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-num">03 — Data</div>
+      <div class="chain-title">Data collected and validated every 30 minutes</div>
+      <div class="chain-body">Every half-hourly consumption reading is collected via GSM or fixed line, validated against Elexon's compliance standards, and provisioned to your supplier through the industry data flow connection.</div>
+      <div class="chain-arr">→</div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-num">04 — Settlement</div>
+      <div class="chain-title">Your supplier bills on actual data</div>
+      <div class="chain-body">Your supplier receives verified HH data for every settlement period. No estimates. No profiles. Your bill reflects exactly what your site consumed, when it consumed it.</div>
+    </div>
+  </div>
+
+  <div class="edv2-badge">⚡ EDV2 — Energy DataVision — client data intelligence portal</div>
+  <p style="font-size:0.82rem;color:var(--tl);margin-top:0.6rem;max-width:540px;line-height:1.65">Our web tool interface gives clients direct visibility of their consumption data — how, when, and where power is used. The intelligence your supplier has always had access to, now available to you.</p>
+</section>
+
+<hr>
+
+<!-- WHY INDEPENDENT MATTERS -->
+<section class="section">
+  <div class="s-label">Why independent matters</div>
+  <h2>Your supplier appointed themselves.<br>You didn't choose that.</h2>
+  <p class="s-body">Historically, the energy supplier holding your supply contract has always appointed themselves as your Meter Operator and Data Collector. This practice means most businesses have little or no visibility of what those services actually cost, and no mechanism to challenge or reduce them. Data Jigsaw changed that.</p>
+
+  <div class="comp-row">
+    <div class="comp-col">
+      <div class="comp-label">Through your energy supplier</div>
+      <ul>
+        <li><span class="ic ic-bad">✗</span>Annual MO charge — often large and opaque</li>
+        <li><span class="ic ic-bad">✗</span>Separate data collection charge on top</li>
+        <li><span class="ic ic-bad">✗</span>Costs bundled into bill with no breakdown</li>
+        <li><span class="ic ic-bad">✗</span>No competitive tendering — supplier sets the price</li>
+        <li><span class="ic ic-bad">✗</span>Data access restricted or not offered</li>
+        <li><span class="ic ic-bad">✗</span>Locked to that supplier's MOP arrangement</li>
+      </ul>
+    </div>
+    <div class="comp-col">
+      <div class="comp-label">Through Data Jigsaw</div>
+      <ul>
+        <li><span class="ic ic-good">✓</span>One fixed monthly cost — all-inclusive</li>
+        <li><span class="ic ic-good">✓</span>Data collection included — no separate charge</li>
+        <li><span class="ic ic-good">✓</span>Full cost transparency from day one</li>
+        <li><span class="ic ic-good">✓</span>Independently tendered — circa 33% less</li>
+        <li><span class="ic ic-good">✓</span>EDV2 data portal — full consumption visibility</li>
+        <li><span class="ic ic-good">✓</span>Supplier-agnostic — works with any UK supplier</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p><strong>Important:</strong> Data Jigsaw has no affiliation with any energy supplier. We are fully compliant and supplier-agnostic — meaning your choice of energy supplier is completely unrestricted. Switching supplier does not affect your MOP or DC arrangement with us, and never has.</p>
+  </div>
+</section>
+
+<hr>
+
+<!-- DEEP DIVE -->
+<section class="section" id="deep" style="background:var(--surface)">
+  <div class="s-label">For those who want the detail</div>
+  <h2>The regulatory context,<br>the data chain, and what it means for your bill.</h2>
+  <p class="s-body">The basics are straightforward. The regulatory background — P272, DCP161, DCP228, Elexon compliance — is where it gets more involved. Click any section to read the full detail.</p>
+
+  <div class="deep-grid">
+
+    <div class="deep-card">
+      <div class="deep-header" onclick="toggleDeep('p1')">
+        <div class="deep-tag">Regulation</div>
+        <h3>What is P272 and does it apply to your business?</h3>
+        <p>The Ofgem regulatory change that forced profile class 05–08 meters into Half Hourly settlement — and what it means for your metering costs.</p>
+        <span class="deep-more" id="p1-tog">Read more ↓</span>
+      </div>
+      <div class="deep-panel" id="p1">
+        <p>P272 is the regulatory modification introduced by Ofgem that requires all electricity meters in profile classes 05, 06, 07, and 08 to migrate to Half Hourly settlement. If your electricity MPAN shows a profile class of 05, 06, 07, or 08 in the top line, P272 applies to your site.</p>
+        <p>The purpose of P272 was straightforward: Ofgem concluded that making Half Hourly data available for this class of sites would improve consumption intelligence across the grid, enabling suppliers to purchase power with greater accuracy and potentially reducing costs for businesses in this sector.</p>
+        <h4>The two costs P272 created</h4>
+        <p>Before P272, maximum demand meters operated under a simpler billing structure. P272 compliance introduced two new costs that confused many businesses: the meter operator charge, and the data collection charge. Energy suppliers began billing for these in different ways — some annually, some monthly, some embedded in the unit rate — making comparison almost impossible.</p>
+        <p>Data Jigsaw identified this confusion as an opportunity to offer clarity. By taking the MOP and DC services outside of the supplier relationship entirely and charging a single, fixed, all-inclusive monthly fee, the true cost becomes visible — and consistently lower than what suppliers charge for the equivalent service.</p>
+        <h4>Is P272 completed?</h4>
+        <p>For most affected sites, the P272 migration process is now complete. However, the metering cost structure it created is permanent — and the case for independent MOP and DC services is as strong as it was when P272 was first implemented. If your site migrated to HH settlement and you have not reviewed your MOP and DC costs since, the review is worth doing.</p>
+      </div>
+    </div>
+
+    <div class="deep-card">
+      <div class="deep-header" onclick="toggleDeep('p2')">
+        <div class="deep-tag">Data chain</div>
+        <h3>MOP, DC, COP — what these roles mean and why they matter</h3>
+        <p>The licensed roles in the Half Hourly data chain, what each one does, and why data quality has a direct financial consequence for your bill.</p>
+        <span class="deep-more" id="p2-tog">Read more ↓</span>
+      </div>
+      <div class="deep-panel" id="p2">
+        <p>Half Hourly metering involves four distinct licensed roles: the Meter Asset Manager (MAM), the Meter Operator (MOP), the Data Collector (DC), and the Data Aggregator (DA). Each role has specific obligations under the Balancing and Settlement Code (BSC) and the associated Meter Operation Code of Practice (COP).</p>
+        <h4>Meter Operator (MOP)</h4>
+        <p>The Meter Operator is responsible for the physical meter — installation, maintenance, calibration, and replacement. COP 3, 5, and 10 define the technical standards that meter operation must meet for different classes of metering equipment. IMSERV, contracted by Data Jigsaw, holds full MOP accreditation and operates to these standards across our portfolio.</p>
+        <h4>Data Collector (DC) and Data Aggregator (DA)</h4>
+        <p>The Data Collector retrieves the 48 half-hourly readings from each meter, validates them, and passes them to the Data Aggregator, who in turn submits them through the settlement system to the supplier and to Elexon. Where readings are missing or invalid, the DC must apply approved substitution methods under the BSC. Substituted data — if not identified and corrected — can result in your bill reflecting consumption that does not accurately represent your actual use.</p>
+        <h4>Why data quality is a billing issue</h4>
+        <p>Every settlement period must have a valid value. A meter communication failure, a modem fault, or a data validation error means the DC substitutes an estimated value in its place. If that substitution is never challenged, it becomes the basis of your charge. Robust MOP and DC management — of the kind IMSERV provides under our contract — reduces the frequency of substitutions and manages them correctly when they occur.</p>
+      </div>
+    </div>
+
+    <div class="deep-card">
+      <div class="deep-header" onclick="toggleDeep('p3')">
+        <div class="deep-tag">DCP161 & capacity</div>
+        <h3>DCP161 — excess capacity charges and why they matter for HH sites</h3>
+        <p>The follow-on regulation to P272 that introduced significant excess capacity penalties for Half Hourly metered sites that exceed their agreed available capacity.</p>
+        <span class="deep-more" id="p3-tog">Read more ↓</span>
+      </div>
+      <div class="deep-panel" id="p3">
+        <p>DCP161 is the Distribution Connection and Use of System Agreement (DCUSA) change introduced by Ofgem following P272. In force from April 2018, it introduced excess capacity penalty charges for Half Hourly electricity supplies that regularly exceed their assigned available capacity.</p>
+        <p>Before DCP161, if a site exceeded its available capacity, the supplier simply charged for the excess kVA at the standard available capacity rate. There was no penalty beyond the standard charge, and as a result there was little financial incentive for businesses or their advisors to actively review and manage capacity levels.</p>
+        <h4>What DCP161 changed</h4>
+        <p>DCP161 introduced an excess capacity penalty rate that can be up to three times higher than the standard capacity rate. The precise rate varies by region and voltage level. For sites that regularly exceed their agreed capacity, this change can increase overall electricity costs by 1–2% or more. The impact is highest in areas where network demand for capacity is greatest.</p>
+        <h4>What this means for your HH meter</h4>
+        <p>Understanding your available capacity and maximum demand levels is now more financially significant than it was before DCP161. Sites moving from NHH to HH settlement under P272 were particularly at risk if they had not previously had sight of their capacity data — which, by definition, NHH meters did not provide. HH data from Data Jigsaw gives you the consumption and demand intelligence to identify capacity risk and manage it before excess charges accumulate.</p>
+        <p>If you have a supply that is incurring excess capacity charges, full site capacity data can be retrieved via Data Jigsaw's services — and the agreed capacity can then be reviewed for resetting at the appropriate level.</p>
+      </div>
+    </div>
+
+    <div class="deep-card">
+      <div class="deep-header" onclick="toggleDeep('p4')">
+        <div class="deep-tag">DCP228 & DUoS</div>
+        <h3>DCP228 — how network charging bands are changing for business electricity</h3>
+        <p>The distribution charging change that restructured Red, Amber, and Green DUoS bands — and what it means for load management strategies.</p>
+        <span class="deep-more" id="p4-tog">Read more ↓</span>
+      </div>
+      <div class="deep-panel" id="p4">
+        <p>DCP228 is the Distribution Use of System change introduced under the Common Distribution Charging Methodology (CDCM). It restructures how Distribution Network Operators (DNOs) recover the costs they incur at different times of day — specifically, it rebalances the cost differential between Red band (peak) and Green band (off-peak) DUoS charges.</p>
+        <h4>What DCP228 does</h4>
+        <p>Prior to DCP228, businesses using electricity during Red time band periods — typically 4pm to 7pm on weekdays in winter — were charged at rates significantly higher than Amber or Green periods. DCP228 lowers Red band charges and slightly raises Amber and Green band charges, in effect flattening the charging structure to more accurately reflect how DNOs actually incur their network costs.</p>
+        <h4>The impact on load management</h4>
+        <p>DCP228 has a direct effect on businesses that have invested in load management systems designed to shift consumption away from Red band periods. Because the price differential between Red and Green bands is reduced, the financial benefit of peak avoidance is also reduced. Businesses with existing load management contracts should reassess whether the savings they were projected to achieve are still achievable under the new structure.</p>
+        <p>Importantly, DCP228 also affects Triad avoidance revenue for businesses in demand-side response programmes, since Triad charges form part of the overall DUoS cost structure that DCP228 is reshaping. The Half Hourly data available through Data Jigsaw provides the granular consumption visibility needed to model the impact of these changes on your specific site.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PARTNER -->
+<section class="section">
+  <div class="s-label">Our delivery partner</div>
+  <h2>IMSERV — the UK's largest<br>independent MOP and DC centre.</h2>
+  <p class="s-body">Data Jigsaw contracts IMSERV exclusively for meter operation, data collection, and data aggregation services across our entire portfolio. IMSERV's scale and compliance infrastructure is what makes Data Jigsaw's service quality possible at the price point we offer.</p>
+  <div class="partner">
+    <div class="partner-lbl">Contracted delivery partner — full portfolio</div>
+    <div class="partner-name">IMSERV Europe Ltd</div>
+    <p class="partner-body">IMSERV is the UK's largest independent provider of MOP and DC services, operating to full Elexon compliance across electricity and gas for commercial and industrial clients. Under Data Jigsaw's contract, IMSERV handles physical meter maintenance and attendance, data collection via GSM and fixed line infrastructure, data validation and substitution management, and provisioning to suppliers through industry data flow connections. Their end-to-end technical capability, combined with experienced field engineers and extensive industry accreditation, is the operational backbone of the Data Jigsaw service.</p>
+  </div>
+  <div class="callout">
+    <p><strong>Working with Better Connected?</strong> If your site has a Half Hourly meter we can confirm whether it sits within the Data Jigsaw portfolio, explain exactly what metering charges appear on your bill and whether they are correctly stated, and request your historical HH consumption data for analysis. Ask us — it starts with a conversation.</p>
+  </div>
+</section>
+
+<hr>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a class="logo" href="/">Better<span style="color:var(--lime)">Connected</span></a>
+      <p class="tagline">Transparent by design. Honest by default.</p>
+    </div>
+    <div class="f-col">
+      <h5>Better Connected</h5>
+      <ul>
+        <li onclick="window.location='/'">Home</li>
+        <li onclick="window.location='/#what-we-do'">What we do</li>
+        <li onclick="window.location='/#honest'">The honest bit</li>
+        <li onclick="window.location='/#knowledge'">Energy explained</li>
+        <li onclick="window.location='/#contact'">Talk to us</li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h5>Legal</h5>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Standard Service Terms</a>
+      <a href="/cookies.html">Cookie Notice</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>Data Jigsaw is a trading name of Better Connections Limited. Company reg: 09655831. Part of the Better Connected group.</p>
+    <p class="strap">Transparent by design. Honest by default.</p>
+  </div>
+</footer>
+
+<script>
+function toggleDeep(id){
+  const panel = document.getElementById(id);
+  const tog = document.getElementById(id+'-tog');
+  const isOpen = panel.classList.contains('open');
+  document.querySelectorAll('.deep-panel').forEach(p=>p.classList.remove('open'));
+  document.querySelectorAll('.deep-more').forEach(t=>{if(t.textContent.includes('↑'))t.textContent=t.textContent.replace('↑','↓')});
+  if(!isOpen){
+    panel.classList.add('open');
+    tog.textContent = tog.textContent.replace('↓','↑');
+    panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+}
+</script>
+</body>
+</html>
