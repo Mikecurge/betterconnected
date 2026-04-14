@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4YLLQJ19L4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4YLLQJ19L4');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0a0a0a">
@@ -232,8 +240,6 @@ hr{border:none;border-top:1px solid var(--border);transition:border-color 0.35s}
 </head>
 <body>
 
-<!-- Better Connected — index.html — Latest build with all updates -->
-<!-- ══ NAV ══ -->
 <nav id="main-nav">
     <div class="nav-left" onclick="show('home')">
     <div class="logo-text">Better<span>Connected</span></div>
@@ -257,7 +263,6 @@ hr{border:none;border-top:1px solid var(--border);transition:border-color 0.35s}
   </div>
 </nav>
 
-<!-- MOBILE DRAWER -->
 <div class="nav-drawer" id="nav-drawer">
   <div class="drawer-header">
     <div class="nav-left"><svg class="bc-owl" width="22" height="40" viewBox="0 0 44 80" fill="none"><path class="body" d="M6 16 C6 6 38 6 38 16 L38 62 C38 72 32 76 22 76 C12 76 6 72 6 62 Z"/><circle class="cutout" cx="15" cy="26" r="7.5"/><circle class="cutout" cx="29" cy="26" r="7.5"/><path class="c-restore" d="M29 18.5 L37.5 22 L37.5 30 L29 33.5 L33 26 Z"/><line class="toe" x1="14" y1="76" x2="8" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="14" y1="76" x2="14" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="14" y1="76" x2="20" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="30" y1="76" x2="24" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="30" y1="76" x2="30" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="30" y1="76" x2="36" y2="80" stroke-width="3" stroke-linecap="round"/></svg><div class="logo-text">Better<span>Connected</span></div></div>
@@ -274,7 +279,6 @@ hr{border:none;border-top:1px solid var(--border);transition:border-color 0.35s}
   <button class="drawer-cta" onclick="show('contact');closeDrawer()">Talk to us →</button>
 </div>
 
-<!-- ══════════ HOME ══════════ -->
 <div class="page active" id="page-home">
 <section class="hero">
   <div class="eyebrow">Energy consultancy — done differently</div>
@@ -323,7 +327,6 @@ hr{border:none;border-top:1px solid var(--border);transition:border-color 0.35s}
 </section>
 </div>
 
-<!-- ══════════ WHAT WE DO ══════════ -->
 <div class="page" id="page-what-we-do">
 <div class="breadcrumb"><a onclick="show('home')">Home</a><span style="opacity:.3">/</span><span>What we do</span></div>
 <section class="section"><div class="s-label">What we do</div><h2>The full scope of what Better Connected does for you.</h2><p class="s-body">We're not a comparison site, a switching platform, or a call centre with a login page. We're a consultancy — which means we think before we recommend, and we stay after we've acted.</p></section>
@@ -333,7 +336,6 @@ hr{border:none;border-top:1px solid var(--border);transition:border-color 0.35s}
 <div class="what-section"><div class="s-label">Stage four</div><h2>Net zero &amp; renewables — the honest version</h2><div class="article"><p>We'll help you understand what each option actually delivers in terms of real-world carbon reduction, what it costs relative to the alternatives, and whether the numbers support the investment at your scale. If a green tariff is simply bundled REGOs with a premium attached, we'll tell you that.</p><div class="callout"><p><strong>On net zero targets:</strong> If your business has made a public net zero commitment, we can help you build an energy roadmap grounded in measurable reduction rather than offset-led accounting.</p></div></div></div>
 </div>
 
-<!-- ══════════ HONEST ══════════ -->
 <div class="page" id="page-honest">
 <div class="breadcrumb"><a onclick="show('home')">Home</a><span style="opacity:.3">/</span><span>The honest bit</span></div>
 <section class="section"><div class="s-label">Transparency first</div><h2>How this industry really works — and how we're different.</h2><p class="s-body">This page exists because we think you deserve to understand the commercial structure of any business you're trusting with your costs. Most companies in our sector don't write a page like this. We think that's telling.</p></section>
@@ -351,7 +353,6 @@ hr{border:none;border-top:1px solid var(--border);transition:border-color 0.35s}
 </div>
 </div>
 
-<!-- ══════════ KNOWLEDGE ══════════ -->
 <div class="page" id="page-knowledge">
 <div class="breadcrumb"><a onclick="show('home')">Home</a><span style="opacity:.3">/</span><span>Energy explained</span></div>
 <section class="section"><div class="s-label">Energy explained</div><h2>Everything on your bill. Explained without the jargon.</h2><p class="s-body">Business energy bills are deliberately complex. That complexity benefits suppliers and disadvantages the businesses paying them. These articles level the playing field.</p>
@@ -368,13 +369,11 @@ hr{border:none;border-top:1px solid var(--border);transition:border-color 0.35s}
 </section>
 </div>
 
-<!-- ══════════ ARTICLE ══════════ -->
 <div class="page" id="page-article">
 <div class="breadcrumb"><a onclick="show('home')">Home</a><span style="opacity:.3">/</span><a onclick="show('knowledge')">Energy explained</a><span style="opacity:.3">/</span><span id="article-crumb"></span></div>
 <section class="section"><div class="article" id="article-body"></div></section>
 </div>
 
-<!-- ══════════ WHO WE WORK WITH ══════════ -->
 <div class="page" id="page-who">
 <div class="breadcrumb"><a onclick="show('home')">Home</a><span style="opacity:.3">/</span><span>Who we work with</span></div>
 <section class="section"><div class="s-label">Who we work with</div><h2>We work with businesses of every size. Honestly.</h2><p class="s-body">We don't have a minimum spend threshold. If we can genuinely add value, we'll take on the work. If we can't, we'll tell you.</p>
@@ -394,7 +393,6 @@ hr{border:none;border-top:1px solid var(--border);transition:border-color 0.35s}
 </section>
 </div>
 
-<!-- ══════════ ABOUT ══════════ -->
 <div class="page" id="page-about">
 <div class="breadcrumb"><a onclick="show('home')">Home</a><span style="opacity:.3">/</span><span>Who we are</span></div>
 <section class="section"><div class="s-label">Who we are</div><h2>We started this because the industry needed someone to start it.</h2>
@@ -410,7 +408,6 @@ hr{border:none;border-top:1px solid var(--border);transition:border-color 0.35s}
 </section>
 </div>
 
-<!-- ══════════ CONTACT ══════════ -->
 <div class="page" id="page-contact">
 <div class="breadcrumb"><a onclick="show('home')">Home</a><span style="opacity:.3">/</span><span>Talk to us</span></div>
 <section class="section"><div class="s-label">Talk to us</div><h2>No pitch deck. No holding page.<br>Just a conversation.</h2><p class="s-body">Tell us a bit about your situation and we'll come back to you within one working day.</p>
@@ -463,7 +460,6 @@ hr{border:none;border-top:1px solid var(--border);transition:border-color 0.35s}
 </section>
 </div>
 
-<!-- ══════════ SHARED FOOTER ══════════ -->
 <template id="ft">
 <hr>
 <footer>
@@ -492,7 +488,6 @@ hr{border:none;border-top:1px solid var(--border);transition:border-color 0.35s}
   </div>
 </footer>
 
-<!-- COOKIE CONSENT BANNER -->
 <div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:500;background:#111;border-top:1px solid rgba(255,255,255,0.1);padding:1.25rem 2rem;font-family:-apple-system,system-ui,sans-serif">
   <div style="max-width:960px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between">
     <div style="flex:1;min-width:260px">
@@ -560,7 +555,7 @@ function toggleMode(){
 
 /* ── DRAWER ── */
 function openDrawer(){document.getElementById('nav-drawer').classList.add('open');document.body.style.overflow='hidden'}
-function closeDrawer(){document.getElementById('nav-drawer').classList.remove('open');document.body.style.overflow=''}
+function closeDrawer(){document.getElementById('nav-drawer').classList.remove('open');document.body.style.overflow=''}\
 
 /* ── COOKIE CONSENT ── */
 function initCookies(){
