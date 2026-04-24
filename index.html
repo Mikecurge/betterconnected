@@ -259,7 +259,7 @@ hr{border:none;border-top:1px solid var(--border);transition:border-color 0.35s}
       <span class="tog-ic">☀</span>
     </div>
     <button class="nav-menu-btn" onclick="openDrawer()">Menu</button>
-    <button class="nav-cta" onclick="show('contact')">Talk to us</button>
+    <button class="nav-cta" onclick="show('contact');gtag('event','talk_to_us_click',{location:'top_nav'})">Talk to us</button>
   </div>
 </nav>
 
@@ -276,7 +276,7 @@ hr{border:none;border-top:1px solid var(--border);transition:border-color 0.35s}
     <a onclick="show('about');closeDrawer()">Who we are</a>
     <a href="/data-jigsaw.html" onclick="closeDrawer()">Data Jigsaw</a>
   </div>
-  <button class="drawer-cta" onclick="show('contact');closeDrawer()">Talk to us →</button>
+  <button class="drawer-cta" onclick="show('contact');closeDrawer();gtag('event','talk_to_us_click',{location:'drawer'})">Talk to us →</button>
 </div>
 
 <div class="page active" id="page-home">
@@ -285,7 +285,7 @@ hr{border:none;border-top:1px solid var(--border);transition:border-color 0.35s}
   <h1>Your energy bill is a<br><span class="lime">negotiation.</span><br>We just happen to be<br>very good at it.</h1>
   <p class="hero-sub">We won't dress this up in buzzwords. Energy costs money, suppliers have margin, and most businesses overpay. We find it. We fix it. Then we stay to make sure it stays fixed.</p>
   <div class="btn-row">
-    <button class="btn-p" onclick="show('contact')">See what we find →</button>
+    <button class="btn-p" onclick="show('contact');gtag('event','talk_to_us_click',{location:'home_hero'})">See what we find →</button>
     <button class="btn-g" onclick="show('what-we-do')">Read how this works</button>
   </div>
 </section>
@@ -413,17 +413,20 @@ hr{border:none;border-top:1px solid var(--border);transition:border-color 0.35s}
 <section class="section"><div class="s-label">Talk to us</div><h2>No pitch deck. No holding page.<br>Just a conversation.</h2><p class="s-body">Tell us a bit about your situation and we'll come back to you within one working day.</p>
 <div class="contact-grid">
   <div>
-    <div id="contact-form">
-      <div class="form-group"><label>Your name</label><input type="text" placeholder="First and last name" autocomplete="name"></div>
-      <div class="form-group"><label>Business name</label><input type="text" placeholder="Company name" autocomplete="organization"></div>
-      <div class="form-group"><label>Email address</label><input type="email" placeholder="you@yourcompany.co.uk" autocomplete="email"></div>
-      <div class="form-group"><label>Phone</label><input type="tel" placeholder="Optional" autocomplete="tel"></div>
+    <form id="contact-form" action="https://formspree.io/f/maqaagol" method="POST">
+      <div class="form-group"><label>Your name</label><input type="text" name="name" placeholder="First and last name" autocomplete="name" required></div>
+      <div class="form-group"><label>Business name</label><input type="text" name="company" placeholder="Company name" autocomplete="organization" required></div>
+      <div class="form-group"><label>Email address</label><input type="email" name="email" placeholder="you@yourcompany.co.uk" autocomplete="email" required></div>
+      <div class="form-group"><label>Phone</label><input type="tel" name="phone" placeholder="Optional" autocomplete="tel"></div>
       <div class="form-group"><label>What best describes your situation?</label>
-        <select><option value="">Select one</option><option>My contract is due to renew soon</option><option>I want my current bill audited</option><option>I'm on a deemed rate and need to fix it</option><option>I want ongoing energy management support</option><option>I'm not sure — I just want a conversation</option></select>
+        <select name="situation" required><option value="">Select one</option><option>My contract is due to renew soon</option><option>I want my current bill audited</option><option>I'm on a deemed rate and need to fix it</option><option>I want ongoing energy management support</option><option>I'm not sure — I just want a conversation</option></select>
       </div>
-      <div class="form-group"><label>Anything else we should know</label><textarea placeholder="Optional — annual spend, number of sites, specific concerns."></textarea></div>
-      <button class="form-submit" onclick="submitForm()">Send this to Better Connected →</button>
-    </div>
+      <div class="form-group"><label>Anything else we should know</label><textarea name="message" placeholder="Optional — annual spend, number of sites, specific concerns."></textarea></div>
+      <input type="hidden" name="_subject" value="New contact form submission from betterconnected.biz">
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+      <button type="submit" class="form-submit">Send this to Better Connected →</button>
+    </form>
+    <p style="margin-top:2rem;font-size:0.85rem;color:var(--text-low);border-top:1px solid var(--border-mid);padding-top:1.5rem">Prefer to sign the Letter of Authority first? <a href="/BCL_LOA_Template.pdf" download onclick="gtag('event','LOA_Downloaded',{location:'contact_page'})" style="color:var(--lime);text-decoration:underline">Download our LOA template (PDF)</a>. We will follow up the same day.</p>
     <div class="success-msg" id="success-msg"><h3>We've got it.</h3><p>Someone from the team will be back with you within one working day. A person, reading this, getting back to you.</p></div>
   </div>
   <div>
@@ -533,10 +536,33 @@ function showArticle(id){
   show('article');
 }
 
-function submitForm(){
-  document.getElementById('contact-form').style.display='none';
-  document.getElementById('success-msg').style.display='block';
-}
+document.addEventListener('DOMContentLoaded', function(){
+  var cf = document.getElementById('contact-form');
+  if(cf){
+    cf.addEventListener('submit', function(e){
+      e.preventDefault();
+      var form = e.target;
+      var data = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: {'Accept': 'application/json'}
+      }).then(function(response){
+        if(response.ok){
+          form.style.display = 'none';
+          document.getElementById('success-msg').style.display = 'block';
+          if(typeof gtag === 'function'){
+            gtag('event', 'contact_form_submit', {form_id: 'contact-form'});
+          }
+        } else {
+          alert('There was a problem sending your message. Please try again or email info@bc-consultants.co.uk directly.');
+        }
+      }).catch(function(){
+        alert('There was a problem sending your message. Please try again or email info@bc-consultants.co.uk directly.');
+      });
+    });
+  }
+});
 
 /* ── FOOTER INJECTION ── */
 const footerInjected={};
