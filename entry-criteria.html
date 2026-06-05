@@ -271,8 +271,11 @@ function toggleMode(){
 }
 (function(){
   try{
-    if(localStorage.getItem('bcl-mode')==='light') document.documentElement.classList.add('light');
-  }catch(e){}
+    var saved=localStorage.getItem('bcl-mode');
+    // Default to light on this page unless user has explicitly chosen dark
+    if(saved==='dark') return;
+    document.documentElement.classList.add('light');
+  }catch(e){ document.documentElement.classList.add('light'); }
 })();
 
 // Mobile drawer
