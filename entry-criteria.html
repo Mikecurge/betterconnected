@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4YLLQJ19L4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4YLLQJ19L4');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>Entry Criteria — Better Connected</title>
+<meta name="description" content="Find out if Better Connected is right for your business. Two minutes. Five questions.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0a0a0a;--surface:#111;--surface2:#161616;
+  --lime:#c8f542;--lime-dim:rgba(200,245,66,0.12);--lime-border:rgba(200,245,66,0.25);
+  --text:#f0ede8;--text-mid:rgba(240,237,232,0.55);--text-low:rgba(240,237,232,0.3);
+  --border:rgba(255,255,255,0.07);--border-mid:rgba(255,255,255,0.12);
+  --nav-bg:rgba(10,10,10,0.97);
+  --cutout:#0a0a0a;--cutout-restore:#c8f542;
+}
+html.light{
+  --bg:#dddbd4;--surface:#e8e6df;--surface2:#d4d2cb;
+  --lime:#6b8c00;--lime-dim:rgba(107,140,0,0.12);--lime-border:rgba(107,140,0,0.35);
+  --text:#0a0a0a;--text-mid:rgba(10,10,10,0.72);--text-low:rgba(10,10,10,0.48);
+  --border:rgba(0,0,0,0.13);--border-mid:rgba(0,0,0,0.22);
+  --nav-bg:rgba(221,219,212,0.97);
+  --cutout:#dddbd4;--cutout-restore:#6b8c00;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;transition:background 0.35s,color 0.35s}
+
+/* NAV */
+nav{display:flex;justify-content:space-between;align-items:center;padding:0.85rem 1.25rem;padding-top:calc(0.85rem + env(safe-area-inset-top,0px));border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:200;transition:background 0.35s,border-color 0.35s}
+.nav-left{display:flex;align-items:center;gap:0.6rem;cursor:pointer;text-decoration:none}
+.logo-text{font-size:0.95rem;font-weight:700;letter-spacing:-0.02em;color:var(--text);transition:color 0.35s}
+.logo-text span{color:var(--lime)}
+.nav-right{display:flex;align-items:center;gap:0.75rem}
+.nav-menu-btn{background:none;border:1px solid var(--border-mid);border-radius:3px;padding:0.4rem 0.6rem;color:var(--text-low);cursor:pointer;font-size:0.75rem;letter-spacing:0.04em;transition:color 0.2s,border-color 0.35s}
+.mode-toggle{display:flex;align-items:center;gap:0.4rem;cursor:pointer;user-select:none}
+.tog-ic{font-size:11px;color:var(--text-low)}
+.trk{width:36px;height:20px;border-radius:10px;background:rgba(255,255,255,0.08);border:1px solid var(--border);position:relative;transition:background 0.25s,border-color 0.35s;flex-shrink:0}
+html.light .trk{background:rgba(0,0,0,0.1)}
+.thb{position:absolute;top:3px;left:3px;width:12px;height:12px;border-radius:50%;background:var(--lime);transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1)}
+html.light .thb{transform:translateX(16px)}
+.nav-cta{font-size:0.78rem;padding:0.45rem 1rem;background:var(--lime);color:#0a0a0a;border:none;border-radius:3px;cursor:pointer;font-weight:700;letter-spacing:0.01em}
+.nav-links-desktop{display:none}
+@media(min-width:900px){
+  nav{padding:0.85rem 3rem}
+  .nav-menu-btn{display:none}
+  .nav-links-desktop{display:flex;gap:0;list-style:none}
+  .nav-links-desktop a{font-size:0.78rem;color:var(--text-low);text-decoration:none;padding:0.4rem 0.9rem;transition:color 0.15s}
+  .nav-links-desktop a:hover{color:var(--text)}
+}
+
+/* MOBILE DRAWER */
+.nav-drawer{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--nav-bg);z-index:300;display:flex;flex-direction:column;padding:1.5rem 1.25rem;padding-top:calc(1.5rem + env(safe-area-inset-top,0px));padding-bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));transform:translateX(100%);transition:transform 0.28s cubic-bezier(0.4,0,0.2,1),background 0.35s}
+.nav-drawer.open{transform:translateX(0)}
+.drawer-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2.5rem}
+.drawer-close{background:none;border:none;color:var(--text-low);font-size:1.4rem;cursor:pointer;padding:0.25rem}
+.drawer-links{display:flex;flex-direction:column}
+.drawer-links a{font-size:1.05rem;font-weight:500;color:var(--text-mid);text-decoration:none;padding:1rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;transition:color 0.15s}
+.drawer-links a:hover{color:var(--lime)}
+.drawer-links a::after{content:'→';opacity:0.35}
+.drawer-cta{margin-top:2rem;padding:1rem;background:var(--lime);color:#0a0a0a;border:none;border-radius:4px;font-size:1rem;font-weight:700;cursor:pointer;width:100%;text-decoration:none;display:block;text-align:center}
+
+/* OWL */
+.bc-owl .cutout{fill:var(--cutout);transition:fill 0.35s}
+.bc-owl .body{fill:#c8f542}
+.bc-owl .wing{fill:#9dc432}
+.bc-owl .toe{stroke:#c8f542}
+.bc-owl .c-restore{fill:var(--cutout-restore);transition:fill 0.35s}
+
+/* PAGE */
+.page-wrap{max-width:580px;margin:0 auto;padding:3rem 1.25rem 5rem}
+@media(min-width:768px){.page-wrap{padding:4rem 2rem 6rem}}
+.eyebrow{font-size:0.68rem;letter-spacing:0.16em;color:var(--lime);text-transform:uppercase;margin-bottom:1.25rem;font-weight:600}
+h1{font-size:clamp(1.75rem,5vw,2.5rem);font-weight:800;line-height:1.15;letter-spacing:-0.03em;margin-bottom:1rem}
+h1 .lime{color:var(--lime)}
+.intro{font-size:1rem;color:var(--text-mid);line-height:1.7;margin-bottom:2.5rem;max-width:480px}
+
+/* FORM */
+.qualify-form{background:var(--surface);border:1px solid var(--border-mid);border-radius:8px;padding:2rem 1.5rem}
+@media(min-width:480px){.qualify-form{padding:2.5rem 2rem}}
+.form-group{margin-bottom:1.25rem}
+.form-group label{display:block;font-size:0.7rem;color:var(--text-low);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;font-weight:600}
+.form-group input,.form-group select{width:100%;background:var(--bg);border:1px solid var(--border-mid);border-radius:4px;padding:0.85rem 1rem;color:var(--text);font-size:1rem;font-family:inherit;outline:none;-webkit-appearance:none;transition:border-color 0.15s,background 0.35s,color 0.35s}
+.form-group input:focus,.form-group select:focus{border-color:var(--lime);box-shadow:0 0 0 3px var(--lime-dim)}
+.form-group select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;cursor:pointer}
+.form-submit{width:100%;padding:1rem;background:var(--lime);color:#0a0a0a;border:none;border-radius:4px;font-size:1rem;font-weight:700;cursor:pointer;letter-spacing:0.01em;transition:opacity 0.15s;margin-top:0.5rem}
+.form-submit:hover{opacity:0.88}
+.form-note{font-size:0.75rem;color:var(--text-low);margin-top:1rem;text-align:center;line-height:1.5}
+
+/* SUCCESS */
+.success-msg{display:none;text-align:center;padding:2rem}
+.success-msg h3{font-size:1.25rem;color:var(--lime);margin-bottom:0.75rem}
+.success-msg p{color:var(--text-mid);font-size:0.95rem;line-height:1.6}
+
+/* FOOTER */
+footer{padding:3rem 1.25rem 2rem;padding-bottom:calc(2rem + env(safe-area-inset-bottom,0px));border-top:1px solid var(--border);transition:border-color 0.35s}
+@media(min-width:768px){footer{padding:4rem 3rem 2.5rem}}
+.footer-top{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2.5rem}
+@media(min-width:768px){.footer-top{grid-template-columns:1.5fr 1fr 1fr 1fr;gap:3rem}}
+.footer-brand{grid-column:1/-1}
+@media(min-width:768px){.footer-brand{grid-column:auto}}
+.footer-brand .tagline{font-size:0.8rem;color:var(--text-low);margin-top:0.75rem;line-height:1.6;max-width:200px}
+.footer-col h5{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-low);margin-bottom:0.85rem}
+.footer-col ul{list-style:none}
+.footer-col li,.footer-col a{font-size:0.82rem;color:var(--text-low);margin-bottom:0.55rem;cursor:pointer;transition:color 0.15s;text-decoration:none;display:block}
+.footer-col li:hover,.footer-col a:hover{color:var(--text)}
+.footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:0.5rem;transition:border-color 0.35s}
+@media(min-width:600px){.footer-bottom{flex-direction:row;justify-content:space-between;align-items:center}}
+.footer-bottom p{font-size:0.72rem;color:var(--text-low)}
+.footer-strap{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,245,66,0.4)}
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a class="nav-left" href="/">
+    <svg class="bc-owl" width="22" height="40" viewBox="0 0 44 80" fill="none"><path class="body" d="M6 16 C6 6 38 6 38 16 L38 62 C38 72 32 76 22 76 C12 76 6 72 6 62 Z"/><circle class="cutout" cx="15" cy="26" r="7.5"/><circle class="cutout" cx="29" cy="26" r="7.5"/><path class="c-restore" d="M29 18.5 L37.5 22 L37.5 30 L29 33.5 L33 26 Z"/><line class="toe" x1="14" y1="76" x2="8" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="14" y1="76" x2="14" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="14" y1="76" x2="20" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="30" y1="76" x2="24" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="30" y1="76" x2="30" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="30" y1="76" x2="36" y2="80" stroke-width="3" stroke-linecap="round"/></svg>
+    <div class="logo-text">Better<span>Connected</span></div>
+  </a>
+  <ul class="nav-links-desktop">
+    <li><a href="/">What we do</a></li>
+    <li><a href="/">The honest bit</a></li>
+    <li><a href="/">Energy explained</a></li>
+    <li><a href="/">Who we work with</a></li>
+    <li><a href="/data-jigsaw.html">Data Jigsaw</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="mode-toggle" onclick="toggleMode()" title="Toggle light/dark mode">
+      <span class="tog-ic">🌙</span>
+      <div class="trk"><div class="thb"></div></div>
+      <span class="tog-ic">☀</span>
+    </div>
+    <button class="nav-menu-btn" onclick="openDrawer()">Menu</button>
+    <a class="nav-cta" href="/" style="text-decoration:none">Talk to us</a>
+  </div>
+</nav>
+
+<div class="nav-drawer" id="nav-drawer">
+  <div class="drawer-header">
+    <a class="nav-left" href="/"><svg class="bc-owl" width="22" height="40" viewBox="0 0 44 80" fill="none"><path class="body" d="M6 16 C6 6 38 6 38 16 L38 62 C38 72 32 76 22 76 C12 76 6 72 6 62 Z"/><circle class="cutout" cx="15" cy="26" r="7.5"/><circle class="cutout" cx="29" cy="26" r="7.5"/><path class="c-restore" d="M29 18.5 L37.5 22 L37.5 30 L29 33.5 L33 26 Z"/><line class="toe" x1="14" y1="76" x2="8" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="14" y1="76" x2="14" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="14" y1="76" x2="20" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="30" y1="76" x2="24" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="30" y1="76" x2="30" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="30" y1="76" x2="36" y2="80" stroke-width="3" stroke-linecap="round"/></svg><div class="logo-text">Better<span>Connected</span></div></a>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-links">
+    <a href="/">What we do</a>
+    <a href="/">The honest bit</a>
+    <a href="/">Energy explained</a>
+    <a href="/">Who we work with</a>
+    <a href="/data-jigsaw.html">Data Jigsaw</a>
+  </div>
+  <a class="drawer-cta" href="/">Talk to us →</a>
+</div>
+
+<div class="page-wrap">
+  <div class="eyebrow">Entry criteria</div>
+  <h1>Is Better Connected<br>right for your <span class="lime">business?</span></h1>
+  <p class="intro">We work with a specific type of business. Not every company is the right fit and we think that is worth being honest about. Answer five questions and we will tell you whether we can help.</p>
+
+  <div class="qualify-form" id="form-wrap">
+    <form id="qualify-form" action="https://formspree.io/f/maqaagol" method="POST">
+      <input type="hidden" name="_subject" value="New qualify form submission — Entry Criteria">
+      <input type="hidden" name="Source" value="Entry Criteria Page">
+
+      <div class="form-group">
+        <label for="company-name">Company name</label>
+        <input type="text" id="company-name" name="Company Name" placeholder="Your company name" autocomplete="organization" required>
+      </div>
+
+      <div class="form-group">
+        <label for="company-status">Company status</label>
+        <select id="company-status" name="Company Status" required>
+          <option value="" disabled selected>Select one</option>
+          <option>Sole Trader</option>
+          <option>Limited Company</option>
+          <option>LLP</option>
+          <option>Partnership</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="time-trading">How long have you been trading?</label>
+        <select id="time-trading" name="Time Trading" required>
+          <option value="" disabled selected>Select one</option>
+          <option>Under 1 year</option>
+          <option>1 to 3 years</option>
+          <option>3 to 10 years</option>
+          <option>10 years or more</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="locations">Number of business locations</label>
+        <select id="locations" name="Number of Locations" required>
+          <option value="" disabled selected>Select one</option>
+          <option>1</option>
+          <option>2 to 5</option>
+          <option>6 or more</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="employees">Number of employees</label>
+        <select id="employees" name="Number of Employees" required>
+          <option value="" disabled selected>Select one</option>
+          <option>1 to 5</option>
+          <option>5 to 10</option>
+          <option>10 to 25</option>
+          <option>25 to 50</option>
+          <option>50 or more</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Your email address</label>
+        <input type="email" id="email" name="Email" placeholder="name@company.com" autocomplete="email" required>
+      </div>
+
+      <button type="submit" class="form-submit">See if you qualify →</button>
+      <p class="form-note">No commitment. No sales call unless you want one. We will read this and reply honestly.</p>
+    </form>
+
+    <div class="success-msg" id="success-msg">
+      <h3>Thank you.</h3>
+      <p>We have received your details. We will review them and come back to you shortly — usually within one working day.</p>
+      <p style="margin-top:1rem"><a href="/" style="color:var(--lime);font-size:0.9rem;text-decoration:none">← Back to betterconnected.biz</a></p>
+    </div>
+  </div>
+</div>
+
+<hr>
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-left" style="cursor:default">
+        <svg class="bc-owl" width="20" height="36" viewBox="0 0 44 80" fill="none"><path class="body" d="M6 16 C6 6 38 6 38 16 L38 62 C38 72 32 76 22 76 C12 76 6 72 6 62 Z"/><circle class="cutout" cx="15" cy="26" r="7.5"/><circle class="cutout" cx="29" cy="26" r="7.5"/><path class="c-restore" d="M29 18.5 L37.5 22 L37.5 30 L29 33.5 L33 26 Z"/><line class="toe" x1="14" y1="76" x2="8" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="14" y1="76" x2="14" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="14" y1="76" x2="20" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="30" y1="76" x2="24" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="30" y1="76" x2="30" y2="80" stroke-width="3" stroke-linecap="round"/><line class="toe" x1="30" y1="76" x2="36" y2="80" stroke-width="3" stroke-linecap="round"/></svg>
+        <div class="logo-text">Better<span>Connected</span></div>
+      </div>
+      <p class="tagline">Transparent by design. Honest by default.</p>
+    </div>
+    <div class="footer-col"><h5>What we do</h5><ul><li onclick="window.location='/'">Procurement &amp; contracts</li><li onclick="window.location='/'">Bill validation</li><li onclick="window.location='/'">Consumption monitoring</li><li onclick="window.location='/'">Net zero advisory</li></ul></div>
+    <div class="footer-col"><h5>Energy explained</h5><ul><li onclick="window.location='/'">Half Hourly meters</li><li onclick="window.location='/'">Transportation charges</li><li onclick="window.location='/'">Green levies &amp; CCL</li><li onclick="window.location='/'">Deemed rate contracts</li></ul></div>
+    <div class="footer-col"><h5>Group</h5><ul>
+      <li onclick="window.location='/data-jigsaw.html'">Data Jigsaw</li>
+      <li><a href="/entry-criteria.html" style="color:var(--text-low);text-decoration:none">Entry criteria</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Better Connections Limited. Reg. 07294707. VAT 212 3657 36.</p>
+    <div style="display:flex;gap:1.25rem;flex-wrap:wrap;margin-top:0.5rem">
+      <a href="/privacy.html" style="font-size:0.72rem;color:var(--text-low);text-decoration:none;transition:color 0.15s" onmouseover="this.style.color='var(--lime)'" onmouseout="this.style.color='var(--text-low)'">Privacy Policy</a>
+      <a href="/terms.html" style="font-size:0.72rem;color:var(--text-low);text-decoration:none;transition:color 0.15s" onmouseover="this.style.color='var(--lime)'" onmouseout="this.style.color='var(--text-low)'">Standard Service Terms</a>
+      <a href="/cookies.html" style="font-size:0.72rem;color:var(--text-low);text-decoration:none;transition:color 0.15s" onmouseover="this.style.color='var(--lime)'" onmouseout="this.style.color='var(--text-low)'">Cookie Notice</a>
+    </div>
+    <p class="footer-strap" style="margin-top:0.5rem">Transparent by design. Honest by default.</p>
+  </div>
+</footer>
+
+<script>
+// Mode toggle
+function toggleMode(){
+  document.documentElement.classList.toggle('light');
+  try{localStorage.setItem('bcl-mode',document.documentElement.classList.contains('light')?'light':'dark')}catch(e){}
+}
+(function(){
+  try{
+    var saved=localStorage.getItem('bcl-mode');
+    // Default to light on this page unless user has explicitly chosen dark
+    if(saved==='dark') return;
+    document.documentElement.classList.add('light');
+  }catch(e){ document.documentElement.classList.add('light'); }
+})();
+
+// Mobile drawer
+function openDrawer(){document.getElementById('nav-drawer').classList.add('open')}
+function closeDrawer(){document.getElementById('nav-drawer').classList.remove('open')}
+
+// Form submission
+document.getElementById('qualify-form').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const btn = this.querySelector('.form-submit');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  try{
+    const res = await fetch(this.action, {
+      method:'POST',
+      body: new FormData(this),
+      headers:{Accept:'application/json'}
+    });
+    if(res.ok){
+      document.getElementById('qualify-form').style.display='none';
+      document.getElementById('success-msg').style.display='block';
+      gtag('event','contact_form_submit',{form_type:'entry_criteria'});
+    } else {
+      btn.textContent = 'Try again';
+      btn.disabled = false;
+    }
+  }catch(err){
+    btn.textContent = 'Try again';
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
