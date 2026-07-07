@@ -1,0 +1,66 @@
+# Better Connected - betterconnected.biz
+# Public marketing content is open to search engines and AI crawlers.
+# Internal tools are excluded.
+
+User-agent: *
+Disallow: /team.html
+Disallow: /renewals.html
+Disallow: /map.html
+Allow: /
+
+# AI search and answer engines are welcome on public content.
+User-agent: GPTBot
+Disallow: /team.html
+Disallow: /renewals.html
+Disallow: /map.html
+Allow: /
+
+User-agent: OAI-SearchBot
+Disallow: /team.html
+Disallow: /renewals.html
+Disallow: /map.html
+Allow: /
+
+User-agent: ChatGPT-User
+Disallow: /team.html
+Disallow: /renewals.html
+Disallow: /map.html
+Allow: /
+
+User-agent: ClaudeBot
+Disallow: /team.html
+Disallow: /renewals.html
+Disallow: /map.html
+Allow: /
+
+User-agent: Claude-User
+Disallow: /team.html
+Disallow: /renewals.html
+Disallow: /map.html
+Allow: /
+
+User-agent: PerplexityBot
+Disallow: /team.html
+Disallow: /renewals.html
+Disallow: /map.html
+Allow: /
+
+User-agent: Perplexity-User
+Disallow: /team.html
+Disallow: /renewals.html
+Disallow: /map.html
+Allow: /
+
+User-agent: Google-Extended
+Disallow: /team.html
+Disallow: /renewals.html
+Disallow: /map.html
+Allow: /
+
+User-agent: Bingbot
+Disallow: /team.html
+Disallow: /renewals.html
+Disallow: /map.html
+Allow: /
+
+Sitemap: https://betterconnected.biz/sitemap.xml
