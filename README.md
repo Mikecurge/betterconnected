@@ -12,7 +12,7 @@ Static website for Better Connected, an advisory led energy and carbon consultan
 - partners.html: Trust Badge landing page, linked from the global footer
 - assets/css/bc.css and assets/js/bc.js: shared design system and behaviour (mode toggle, drawer, consent gated analytics, scroll reveal, content protection, AJAX forms)
 - robots.txt, sitemap.xml, llms.txt: search and AI crawler infrastructure
-- team.html, renewals.html: internal tools, noindexed, excluded from sitemap and robots
+- team.html: internal tool, noindexed, excluded from sitemap. renewals.html removed 10 July 2026 (embedded client names, prototype refiled to Reference_Library/MC_dev pending the authenticated Supabase build)
 - map.html was removed on 10 July 2026 (unrelated One Flame project). Delete it from the GitHub repository on the next upload.
 
 ## Notes for maintainers
