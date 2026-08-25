@@ -6,7 +6,7 @@ Static website for Better Connected, an advisory led energy and carbon consultan
 
 - index.html, what-we-do.html, the-honest-bit.html, about.html, contact.html, who-we-work-with.html, schools.html: core marketing pages
 - energy-explained/: index plus eight plain English article pages
-- data-jigsaw.html: Data Jigsaw group business page
+- metering.html: Better Connected Metering page (data-jigsaw.html is a redirect stub to it)
 - entry-criteria.html: qualifying form
 - privacy.html, terms.html, cookies.html, 404.html: legal and error pages. terms.html carries Standard Service Terms V1.2 (8 July 2026)
 - partners.html: Trust Badge landing page, linked from the global footer
