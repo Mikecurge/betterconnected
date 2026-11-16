@@ -65,6 +65,16 @@ html.light .nav-cta{color:#f4f3ee}
   .nav-links-desktop a:hover,.nav-links-desktop a.active{color:var(--text)}
   .nav-links-desktop a:hover::after,.nav-links-desktop a.active::after{transform:scaleX(1)}
 }
+@media(min-width:960px) and (max-width:1279px){
+  nav.bc-nav{padding:0.95rem 1.5rem}
+  .nav-links-desktop a{padding:0.45rem 0.5rem;white-space:nowrap}
+  .nav-links-desktop a::after{left:0.5rem;right:0.5rem}
+}
+@media(min-width:960px) and (max-width:1099px){
+  nav.bc-nav{padding:0.95rem 1rem}
+  .nav-links-desktop a{padding:0.45rem 0.35rem;font-size:0.74rem}
+  .nav-links-desktop a::after{left:0.35rem;right:0.35rem}
+}
 
 /* MODE TOGGLE */
 .mode-toggle{display:flex;align-items:center;gap:0.4rem;cursor:pointer;user-select:none}
